@@ -6,7 +6,7 @@
             "id": "911c51fd-925f-4993-9934-798e1553c336",
             "actions": [
                 {
-                    "name": "LeftPlayer_Roll",
+                    "name": "LeftPlayerRoll",
                     "type": "Button",
                     "id": "e9c10914-e2b5-40eb-b3e8-6e916f3f7ef1",
                     "expectedControlType": "",
@@ -15,7 +15,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LeftPlayer_Swap",
+                    "name": "LeftPlayerSwap",
                     "type": "Button",
                     "id": "153bbe37-10cd-4696-941c-c2e158f1cbcb",
                     "expectedControlType": "",
@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RightPlayer_Roll",
+                    "name": "RightPlayerRoll",
                     "type": "Button",
                     "id": "57d97b43-af09-40fa-9714-f7d8b5a3b798",
                     "expectedControlType": "",
@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RightPlayer_Swap",
+                    "name": "RightPlayerSwap",
                     "type": "Button",
                     "id": "9376f2bf-2d9f-4f3f-a791-68b71df35eb1",
                     "expectedControlType": "",
@@ -59,7 +59,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard + Mouse",
-                    "action": "LeftPlayer_Roll",
+                    "action": "LeftPlayerRoll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -70,7 +70,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard + Mouse",
-                    "action": "LeftPlayer_Swap",
+                    "action": "LeftPlayerSwap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -81,7 +81,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard + Mouse",
-                    "action": "RightPlayer_Roll",
+                    "action": "RightPlayerRoll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -92,7 +92,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard + Mouse",
-                    "action": "RightPlayer_Swap",
+                    "action": "RightPlayerSwap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
