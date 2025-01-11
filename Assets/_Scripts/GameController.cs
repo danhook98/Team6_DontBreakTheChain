@@ -55,4 +55,9 @@ public class GameController : MonoBehaviour
     {
         
     }
+
+    private byte RollDice()
+    {
+        // return number;
+    } 
 }
