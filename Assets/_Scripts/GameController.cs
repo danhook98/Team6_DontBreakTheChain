@@ -3,11 +3,19 @@ using UnityEngine.Events;
 
 public class GameController : MonoBehaviour
 {
+    [Header("Input Reader")]
     [SerializeField] private InputReader inputReader;
 
-    // The int parameter passed is the number of 'spaces' to move. 
-    public UnityEvent<int> LeftPlayerMove;
-    public UnityEvent<int> RightPlayerMove;
+    [Header("Game variables")] 
+    [SerializeField] private int tilesToWin = 30;
+
+    private byte _tilesMovedLeftPlayer = 0; 
+    private byte _tilesMovedRightPlayer = 0;
+
+    // The int parameter passed is the number of 'spaces' to move. Byte is used as the data type as realistically, the
+    // players will never move beyond 256 tiles in one go.
+    public UnityEvent<byte> LeftPlayerMove;
+    public UnityEvent<byte> RightPlayerMove;
 
     // Subscribe to the input events from the Input Reader.
     private void OnEnable()

@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
         _playerTransform.position = _goalPosition;
     }
     
-    public void Move(int steps)
+    public void Move(byte steps)
     {
         Vector3 movement = Vector3.forward * steps;
         _goalPosition = _playerTransform.position + movement;
