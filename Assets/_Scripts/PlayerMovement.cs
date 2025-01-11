@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,22 +8,12 @@ public class PlayerMovement : MonoBehaviour
     
     private Transform _playerTransform;
 
-    private Vector3 _velocity = Vector3.zero;
-
     private Vector3 _currentPosition;
     private Vector3 _goalPosition;
 
     private void Start()
     {
         _playerTransform = GetComponent<Transform>();
-    }
-
-    private float test = 2f;
-    private void Update()
-    {
-        if (!(Time.time > test)) return;
-        Move( Vector3.forward );
-        test = Time.time + 5f;
     }
 
     private IEnumerator MovePlayer()
