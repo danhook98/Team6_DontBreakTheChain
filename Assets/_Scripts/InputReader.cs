@@ -59,7 +59,7 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
 
     public void OnRightPlayerSwap( InputAction.CallbackContext context )
     {
-        if ( context.action.phase != InputActionPhase.Performed )
+        if ( context.action.phase == InputActionPhase.Performed )
         {
             RightPlayerSwapEvent?.Invoke();
         }
@@ -75,4 +75,25 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
 
     public void EnableInput() => _gameInput.Gameplay.Enable();
     public void DisableInput() => _gameInput.Gameplay.Disable();
+
+    public string GetBinding(string actionName)
+    {
+        InputAction action = _gameInput.FindAction(actionName);
+        
+        if (action == null)
+        {
+            Debug.LogError("No such action: " + actionName);
+            return "";
+        }
+        
+        // Get the string binding from the keyboard bindings (0), this will return something like '<Keyboard>/S'.
+        string binding = action.bindings[0].effectivePath;
+        return RenameBinding(binding);
+    }
+
+    private static string RenameBinding(string bind)
+    {
+        bind = bind.Replace("<Keyboard>/", "").ToUpper();
+        return bind;
+    }
 }
