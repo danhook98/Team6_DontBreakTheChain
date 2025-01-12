@@ -17,6 +17,9 @@ public class GameController : MonoBehaviour
     public UnityEvent<byte> LeftPlayerMove;
     public UnityEvent<byte> RightPlayerMove;
 
+    public UnityEvent<byte> TilesMovedLeftPlayerUpdate;
+    public UnityEvent<byte> TilesMovedRightPlayerUpdate;
+
     // Subscribe to the input events from the Input Reader.
     private void OnEnable()
     {
