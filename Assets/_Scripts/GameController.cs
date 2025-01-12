@@ -38,22 +38,26 @@ public class GameController : MonoBehaviour
 
     private void LeftPlayerRoll()
     {
-        
+        string bind = inputReader.GetBinding( "Gameplay/LeftPlayerRoll");
+        Debug.Log(bind);
     }
 
     private void LeftPlayerSwap()
     {
-        
+        string bind = inputReader.GetBinding( "Gameplay/LeftPlayerSwap");
+        Debug.Log(bind);
     }
 
     private void RightPlayerRoll()
     {
-        
+        string bind = inputReader.GetBinding( "Gameplay/RightPlayerRoll");
+        Debug.Log(bind);
     }
 
     private void RightPlayerSwap()
     {
-        
+        string bind = inputReader.GetBinding( "Gameplay/RightPlayerSwap");
+        Debug.Log(bind);
     }
 
     private byte RollDice()
