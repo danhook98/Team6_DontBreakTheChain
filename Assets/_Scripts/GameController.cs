@@ -1,5 +1,7 @@
+using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public class GameController : MonoBehaviour
 {
@@ -12,6 +14,14 @@ public class GameController : MonoBehaviour
 
     [Header("Game variables")] 
     [SerializeField] private int tilesToWin = 30;
+    [SerializeField] private float rollTimeout;
+
+    private WaitForSeconds _rollTimeout;
+
+    private void Start()
+    {
+        _rollTimeout = new WaitForSeconds(rollTimeout);
+    }
 
     // Subscribe to the input events from the Input Reader.
     private void OnEnable()
@@ -30,6 +40,26 @@ public class GameController : MonoBehaviour
         inputReader.LeftPlayerSwapEvent -= LeftPlayerSwap;
         inputReader.RightPlayerRollEvent -= RightPlayerRoll;
         inputReader.RightPlayerSwapEvent -= RightPlayerSwap;
+    }
+
+    // Main game loop.
+    private void Update()
+    {
+        // Player one and two have both passed the win threshold. 
+        if (playerOne.CurrentTilesMoved >= tilesToWin && playerTwo.CurrentTilesMoved >= tilesToWin)
+        {
+            // Run some kind of game win method.
+            return;
+        }
+        
+        // Player one and two have both rolled.
+        if (!playerOne.CanRoll && !playerTwo.CanRoll)
+        {
+            playerOne.CanRoll = true;
+            playerTwo.CanRoll = true;
+            
+            Debug.Log("Round over");
+        }
     }
 
     private void LeftPlayerRoll()
@@ -52,7 +82,7 @@ public class GameController : MonoBehaviour
         
     }
 
-    private static void PlayerRoll(PlayerSO player)
+    private void PlayerRoll(PlayerSO player)
     {
         if (!player.CanRoll) return;
         
@@ -61,9 +91,17 @@ public class GameController : MonoBehaviour
         player.MovePlayer(roll);
         player.CurrentRollChanged(roll);
         player.UpdateTilesMoved(roll);
-        
+
         player.CanRoll = false;
-        
+
+        //StartCoroutine(TimeoutRoll(player));
+    }
+
+    private IEnumerator TimeoutRoll(PlayerSO player)
+    {
+        player.CanRoll = false;
+        yield return _rollTimeout;
+        player.CanRoll = true;
     }
 
     private static byte RollDice()
