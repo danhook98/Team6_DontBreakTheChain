@@ -6,6 +6,10 @@ public class GameController : MonoBehaviour
     [Header("Input Reader")]
     [SerializeField] private InputReader inputReader;
 
+    [Header("Player Data References")] 
+    [SerializeField] private PlayerSO playerOne;
+    [SerializeField] private PlayerSO playerTwo;
+
     [Header("Game variables")] 
     [SerializeField] private int tilesToWin = 30;
 
@@ -14,11 +18,11 @@ public class GameController : MonoBehaviour
 
     // The int parameter passed is the number of 'spaces' to move. Byte is used as the data type as realistically, the
     // players will never move beyond 256 tiles in one go.
-    public UnityEvent<byte> LeftPlayerMove;
-    public UnityEvent<byte> RightPlayerMove;
-
-    public UnityEvent<byte> TilesMovedLeftPlayerUpdate;
-    public UnityEvent<byte> TilesMovedRightPlayerUpdate;
+    // public UnityEvent<byte> LeftPlayerMove;
+    // public UnityEvent<byte> RightPlayerMove;
+    //
+    // public UnityEvent<byte> TilesMovedLeftPlayerUpdate;
+    // public UnityEvent<byte> TilesMovedRightPlayerUpdate;
 
     // Subscribe to the input events from the Input Reader.
     private void OnEnable()
@@ -41,31 +45,36 @@ public class GameController : MonoBehaviour
 
     private void LeftPlayerRoll()
     {
-        string bind = inputReader.GetBinding( "Gameplay/LeftPlayerRoll");
-        Debug.Log(bind);
+        PlayerRoll(playerOne);
     }
 
     private void LeftPlayerSwap()
     {
-        string bind = inputReader.GetBinding( "Gameplay/LeftPlayerSwap");
-        Debug.Log(bind);
+        
     }
 
     private void RightPlayerRoll()
     {
-        string bind = inputReader.GetBinding( "Gameplay/RightPlayerRoll");
-        Debug.Log(bind);
+        PlayerRoll(playerTwo);
     }
 
     private void RightPlayerSwap()
     {
-        string bind = inputReader.GetBinding( "Gameplay/RightPlayerSwap");
-        Debug.Log(bind);
+        
+    }
+
+    private void PlayerRoll(PlayerSO player)
+    {
+        byte roll = RollDice();
+        player.MovePlayer(roll);
+        player.CurrentRollChanged(roll);
+        player.CurrentTilesMovedChanged(roll);
     }
 
     private byte RollDice()
     {
         // return number;
-        return 0; // temp to resolve return error
+        return 1; // temp to resolve return error
     } 
 }
+
