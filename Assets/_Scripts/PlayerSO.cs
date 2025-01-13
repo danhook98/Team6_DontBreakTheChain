@@ -6,11 +6,11 @@ public class PlayerSO : ScriptableObject
 {
     public string Name;
     
-    public byte CurrentRoll { get; private set; } = 0;
-    public RollState CurrentRollState { get; set; } = RollState.Idle;
-    public byte CurrentTilesMoved { get; private set; } = 0;
-    public bool CanRoll { get; set; } = true;
-    public bool CanSwap { get; set; } = true;
+    public byte CurrentRoll { get; private set; }
+    public RollState CurrentRollState { get; set; }
+    public byte CurrentTilesMoved { get; private set; }
+    public bool CanRoll { get; set; }
+    public bool WantsToSwap { get; set; }
 
     private void OnEnable()
     {
@@ -18,7 +18,7 @@ public class PlayerSO : ScriptableObject
         CurrentRollState = RollState.Idle;
         CurrentTilesMoved = 0;
         CanRoll = true;
-        CanSwap = true;
+        WantsToSwap = false;
     }
 
     public event UnityAction<byte> OnMove;
@@ -27,7 +27,7 @@ public class PlayerSO : ScriptableObject
     
     public void MovePlayer(byte steps) => OnMove?.Invoke(steps);
 
-    public void CurrentRollChanged(byte roll)
+    public void UpdateCurrentRoll(byte roll)
     {
         CurrentRoll = roll;
         OnCurrentRollChanged?.Invoke(roll);
@@ -38,10 +38,4 @@ public class PlayerSO : ScriptableObject
         CurrentTilesMoved += tiles;
         OnCurrentTilesMovedChanged?.Invoke(CurrentTilesMoved);
     } 
-}
-
-public enum RollState
-{
-    Idle = 0,
-    Rolled = 1,
 }

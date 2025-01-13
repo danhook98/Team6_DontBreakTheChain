@@ -59,6 +59,12 @@ public class GameController : MonoBehaviour
             
             Debug.Log("Round over");
         }
+
+        // Both players want to swap their dice rolls.
+        if (playerOne.WantsToSwap && playerTwo.WantsToSwap)
+        {
+            SwapDiceValues();
+        }
     }
 
     private void GameWon()
@@ -67,39 +73,34 @@ public class GameController : MonoBehaviour
         _gameWon = true;
         OnWin?.Invoke();
     }
-
-    private void LeftPlayerRoll()
+    
+    private void SwapDiceValues()
     {
-        PlayerRoll(playerOne);
+        byte temp = playerOne.CurrentRoll;
+        playerOne.UpdateCurrentRoll(playerTwo.CurrentRoll);
+        playerTwo.UpdateCurrentRoll(temp);
+
+        playerOne.WantsToSwap = false;
+        playerTwo.WantsToSwap = false;
     }
 
-    private void LeftPlayerSwap()
-    {
-        
-    }
+    private void LeftPlayerRoll() => PlayerRoll(playerOne);
+    private void LeftPlayerSwap() => PlayerSwap(playerOne);
 
-    private void RightPlayerRoll()
-    {
-        PlayerRoll(playerTwo);
-    }
-
-    private void RightPlayerSwap()
-    {
-        
-    }
+    private void RightPlayerRoll() => PlayerRoll(playerTwo);
+    private void RightPlayerSwap() => PlayerSwap(playerTwo);
 
     private void PlayerRoll(PlayerSO player)
     {
         switch (player.CurrentRollState)
         {
             case RollState.Idle:
-                Debug.Log("Player is rolled");
-                // The roll state may be 'rolled', but the player isn't currently allowed to do anything (e.g. waiting for
-                // the other player to roll).
+                // The roll state may be 'rolled', but the player isn't currently allowed to do anything (e.g. waiting
+                // for the other player to roll).
                 if (!player.CanRoll || player.CurrentTilesMoved > tilesToWin) break;
 
                 byte roll = RollDice();
-                player.CurrentRollChanged(roll);
+                player.UpdateCurrentRoll(roll);
                 
                 player.CurrentRollState = RollState.Rolled;
                 
@@ -107,7 +108,6 @@ public class GameController : MonoBehaviour
                 
                 break;
             case RollState.Rolled:
-                Debug.Log("Player is confirmed");
                 if (!player.CanRoll || player.CurrentTilesMoved > tilesToWin) break;
                 
                 player.MovePlayer(player.CurrentRoll);
@@ -135,6 +135,14 @@ public class GameController : MonoBehaviour
 
         player.CanRoll = false;
         player.CurrentRollState = RollState.Rolled;*/
+    }
+
+    private void PlayerSwap(PlayerSO player)
+    {
+        if (!player.WantsToSwap && player.CurrentRollState == RollState.Rolled)
+        {
+            player.WantsToSwap = true;
+        }
     }
 
     private static byte RollDice()
