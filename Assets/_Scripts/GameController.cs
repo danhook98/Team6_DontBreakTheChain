@@ -68,7 +68,7 @@ public class GameController : MonoBehaviour
         byte roll = RollDice();
         player.MovePlayer(roll);
         player.CurrentRollChanged(roll);
-        player.CurrentTilesMovedChanged(roll);
+        player.UpdateTilesMoved(roll);
     }
 
     private byte RollDice()

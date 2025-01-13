@@ -22,5 +22,10 @@ public class PlayerSO : ScriptableObject
     
     public void MovePlayer(byte steps) => OnMove?.Invoke(steps);
     public void CurrentRollChanged(byte roll) => OnCurrentRollChanged?.Invoke(roll);
-    public void CurrentTilesMovedChanged(byte tiles) => OnCurrentTilesMovedChanged?.Invoke(tiles);
+
+    public void UpdateTilesMoved(byte tiles)
+    {
+        CurrentTilesMoved += tiles;
+        OnCurrentTilesMovedChanged?.Invoke(CurrentTilesMoved);
+    } 
 }
