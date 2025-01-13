@@ -13,17 +13,6 @@ public class GameController : MonoBehaviour
     [Header("Game variables")] 
     [SerializeField] private int tilesToWin = 30;
 
-    private byte _tilesMovedLeftPlayer = 0; 
-    private byte _tilesMovedRightPlayer = 0;
-
-    // The int parameter passed is the number of 'spaces' to move. Byte is used as the data type as realistically, the
-    // players will never move beyond 256 tiles in one go.
-    // public UnityEvent<byte> LeftPlayerMove;
-    // public UnityEvent<byte> RightPlayerMove;
-    //
-    // public UnityEvent<byte> TilesMovedLeftPlayerUpdate;
-    // public UnityEvent<byte> TilesMovedRightPlayerUpdate;
-
     // Subscribe to the input events from the Input Reader.
     private void OnEnable()
     {
@@ -71,10 +60,10 @@ public class GameController : MonoBehaviour
         player.UpdateTilesMoved(roll);
     }
 
-    private byte RollDice()
+    private static byte RollDice()
     {
-        // return number;
-        return 1; // temp to resolve return error
+        byte randomNumber = (byte) Random.Range(1, 6);
+        return randomNumber;
     } 
 }
 
