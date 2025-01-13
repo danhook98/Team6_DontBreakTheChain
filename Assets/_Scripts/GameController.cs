@@ -1,6 +1,5 @@
-using System;
-using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class GameController : MonoBehaviour
@@ -11,17 +10,13 @@ public class GameController : MonoBehaviour
     [Header("Player Data References")] 
     [SerializeField] private PlayerSO playerOne;
     [SerializeField] private PlayerSO playerTwo;
-
+    
     [Header("Game variables")] 
     [SerializeField] private int tilesToWin = 30;
-    [SerializeField] private float rollTimeout;
 
-    private WaitForSeconds _rollTimeout;
-
-    private void Start()
-    {
-        _rollTimeout = new WaitForSeconds(rollTimeout);
-    }
+    private bool _gameWon = false;
+    
+    public UnityEvent OnWin;
 
     // Subscribe to the input events from the Input Reader.
     private void OnEnable()
@@ -48,7 +43,7 @@ public class GameController : MonoBehaviour
         // Player one and two have both passed the win threshold. 
         if (playerOne.CurrentTilesMoved >= tilesToWin && playerTwo.CurrentTilesMoved >= tilesToWin)
         {
-            // Run some kind of game win method.
+            GameWon();
             return;
         }
         
@@ -60,6 +55,13 @@ public class GameController : MonoBehaviour
             
             Debug.Log("Round over");
         }
+    }
+
+    private void GameWon()
+    {
+        if (_gameWon) return;
+        _gameWon = true;
+        OnWin?.Invoke();
     }
 
     private void LeftPlayerRoll()
@@ -84,7 +86,7 @@ public class GameController : MonoBehaviour
 
     private void PlayerRoll(PlayerSO player)
     {
-        if (!player.CanRoll) return;
+        if (!player.CanRoll || player.CurrentTilesMoved > tilesToWin) return;
         
         byte roll = RollDice();
         
@@ -93,15 +95,6 @@ public class GameController : MonoBehaviour
         player.UpdateTilesMoved(roll);
 
         player.CanRoll = false;
-
-        //StartCoroutine(TimeoutRoll(player));
-    }
-
-    private IEnumerator TimeoutRoll(PlayerSO player)
-    {
-        player.CanRoll = false;
-        yield return _rollTimeout;
-        player.CanRoll = true;
     }
 
     private static byte RollDice()
