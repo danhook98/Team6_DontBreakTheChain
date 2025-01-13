@@ -1,7 +1,7 @@
-using TMPro;
 using UnityEngine;
+using TMPro;
 
-public class TilesMoved : MonoBehaviour
+public class RollValue : MonoBehaviour
 {
     [Header("Player Data Reference")]
     [SerializeField] private PlayerSO player;
@@ -10,12 +10,12 @@ public class TilesMoved : MonoBehaviour
 
     private void OnEnable()
     {
-        player.OnCurrentTilesMovedChanged += UpdateTilesMoved;
+        player.OnCurrentRollChanged += UpdateRollValue; 
     }
 
     private void OnDisable()
     {
-        player.OnCurrentTilesMovedChanged -= UpdateTilesMoved;
+        player.OnCurrentRollChanged -= UpdateRollValue;
     }
 
     private void Awake()
@@ -23,9 +23,9 @@ public class TilesMoved : MonoBehaviour
         _text = GetComponent<TextMeshProUGUI>();
     }
 
-    public void UpdateTilesMoved(byte tilesMoved)
+    public void UpdateRollValue(byte roll)
     {
-        string text = $"Tiles moved: {tilesMoved}";
+        string text = $"You rolled a {roll}!";
         _text.text = text;
     }
 }
