@@ -9,6 +9,13 @@ public class PlayerSO : ScriptableObject
     public byte CurrentTilesMoved;
     public bool CanSwap;
 
+    private void OnEnable()
+    {
+        CurrentRoll = 0;
+        CurrentTilesMoved = 0;
+        CanSwap = false;
+    }
+
     public event UnityAction<byte> OnMove;
     public event UnityAction<byte> OnCurrentRollChanged;
     public event UnityAction<byte> OnCurrentTilesMovedChanged;
