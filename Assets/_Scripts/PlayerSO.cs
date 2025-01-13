@@ -7,13 +7,28 @@ public class PlayerSO : ScriptableObject
     public string Name;
     public byte CurrentRoll;
     public byte CurrentTilesMoved;
-    public bool CanSwap;
+
+    private bool _canRoll = true;
+    private bool _canSwap = true;
+
+    public bool CanRoll
+    {
+        get { return _canRoll; }
+        set { _canRoll = value; }
+    }
+
+    public bool CanSwap
+    {
+        get { return _canSwap; }
+        set { _canSwap = value; }
+    }
 
     private void OnEnable()
     {
         CurrentRoll = 0;
         CurrentTilesMoved = 0;
-        CanSwap = false;
+        _canRoll = true;
+        _canSwap = true;
     }
 
     public event UnityAction<byte> OnMove;

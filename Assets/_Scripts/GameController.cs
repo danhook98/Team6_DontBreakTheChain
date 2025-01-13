@@ -52,12 +52,18 @@ public class GameController : MonoBehaviour
         
     }
 
-    private void PlayerRoll(PlayerSO player)
+    private static void PlayerRoll(PlayerSO player)
     {
+        if (!player.CanRoll) return;
+        
         byte roll = RollDice();
+        
         player.MovePlayer(roll);
         player.CurrentRollChanged(roll);
         player.UpdateTilesMoved(roll);
+        
+        player.CanRoll = false;
+        
     }
 
     private static byte RollDice()
