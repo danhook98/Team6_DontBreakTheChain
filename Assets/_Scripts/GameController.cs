@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
@@ -41,17 +42,20 @@ public class GameController : MonoBehaviour
     private void Update()
     {
         // Player one and two have both passed the win threshold. 
-        if (playerOne.CurrentTilesMoved >= tilesToWin && playerTwo.CurrentTilesMoved >= tilesToWin)
+        if (playerOne.CurrentTilesMoved > tilesToWin && playerTwo.CurrentTilesMoved > tilesToWin)
         {
             GameWon();
             return;
         }
         
         // Player one and two have both rolled.
-        if (!playerOne.CanRoll && !playerTwo.CanRoll)
+        if ((!playerOne.CanRoll && !playerTwo.CanRoll) && (playerOne.CurrentRollState == RollState.Rolled 
+                                                           && playerTwo.CurrentRollState == RollState.Rolled))
         {
             playerOne.CanRoll = true;
+            playerOne.CurrentRollState = RollState.Idle;
             playerTwo.CanRoll = true;
+            playerTwo.CurrentRollState = RollState.Idle;
             
             Debug.Log("Round over");
         }
@@ -86,6 +90,41 @@ public class GameController : MonoBehaviour
 
     private void PlayerRoll(PlayerSO player)
     {
+        switch (player.CurrentRollState)
+        {
+            case RollState.Idle:
+                Debug.Log("Player is rolled");
+                // The roll state may be 'rolled', but the player isn't currently allowed to do anything (e.g. waiting for
+                // the other player to roll).
+                if (!player.CanRoll || player.CurrentTilesMoved > tilesToWin) break;
+
+                byte roll = RollDice();
+                player.CurrentRollChanged(roll);
+                
+                player.CurrentRollState = RollState.Rolled;
+                
+                // TODO: display the roll value and a message stating to press again to confirm.
+                
+                break;
+            case RollState.Rolled:
+                Debug.Log("Player is confirmed");
+                if (!player.CanRoll || player.CurrentTilesMoved > tilesToWin) break;
+                
+                player.MovePlayer(player.CurrentRoll);
+                player.UpdateTilesMoved(player.CurrentRoll);
+                
+                player.CanRoll = false;
+                
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        
+        /*if (player.CurrentRollState == RollState.Rolled)
+        {
+            player.CurrentRollState = RollState.Confirmed;
+        }
+        
         if (!player.CanRoll || player.CurrentTilesMoved > tilesToWin) return;
         
         byte roll = RollDice();
@@ -95,6 +134,7 @@ public class GameController : MonoBehaviour
         player.UpdateTilesMoved(roll);
 
         player.CanRoll = false;
+        player.CurrentRollState = RollState.Rolled;*/
     }
 
     private static byte RollDice()
