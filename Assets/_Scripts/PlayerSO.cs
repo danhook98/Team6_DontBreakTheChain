@@ -7,8 +7,7 @@ public class PlayerSO : ScriptableObject
     public string Name;
     public byte CurrentRoll;
     public byte CurrentTilesMoved;
-
-    public float NextRollTime { get; set; } = 0f;
+    
     public bool CanRoll { get; set; } = true;
     public bool CanSwap { get; set; } = true;
 
@@ -16,7 +15,6 @@ public class PlayerSO : ScriptableObject
     {
         CurrentRoll = 0;
         CurrentTilesMoved = 0;
-        NextRollTime = 0f;
         CanRoll = true;
         CanSwap = true;
     }
