@@ -3,7 +3,20 @@ using UnityEngine;
 
 public class TilesMoved : MonoBehaviour
 {
+    [Header("Player Data Reference")]
+    [SerializeField] private PlayerSO player;
+    
     private TextMeshProUGUI _text;
+
+    private void OnEnable()
+    {
+        player.OnCurrentTilesMovedChanged += UpdateTilesMoved;
+    }
+
+    private void OnDisable()
+    {
+        player.OnCurrentTilesMovedChanged -= UpdateTilesMoved;
+    }
 
     private void Awake()
     {

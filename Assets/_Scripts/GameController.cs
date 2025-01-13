@@ -1,24 +1,23 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public class GameController : MonoBehaviour
 {
     [Header("Input Reader")]
     [SerializeField] private InputReader inputReader;
 
+    [Header("Player Data References")] 
+    [SerializeField] private PlayerSO playerOne;
+    [SerializeField] private PlayerSO playerTwo;
+    
     [Header("Game variables")] 
     [SerializeField] private int tilesToWin = 30;
 
-    private byte _tilesMovedLeftPlayer = 0; 
-    private byte _tilesMovedRightPlayer = 0;
-
-    // The int parameter passed is the number of 'spaces' to move. Byte is used as the data type as realistically, the
-    // players will never move beyond 256 tiles in one go.
-    public UnityEvent<byte> LeftPlayerMove;
-    public UnityEvent<byte> RightPlayerMove;
-
-    public UnityEvent<byte> TilesMovedLeftPlayerUpdate;
-    public UnityEvent<byte> TilesMovedRightPlayerUpdate;
+    private bool _gameWon = false;
+    
+    public UnityEvent OnWin;
 
     // Subscribe to the input events from the Input Reader.
     private void OnEnable()
@@ -39,33 +38,117 @@ public class GameController : MonoBehaviour
         inputReader.RightPlayerSwapEvent -= RightPlayerSwap;
     }
 
-    private void LeftPlayerRoll()
+    // Main game loop.
+    private void Update()
     {
-        string bind = inputReader.GetBinding( "Gameplay/LeftPlayerRoll");
-        Debug.Log(bind);
+        // Player one and two have both passed the win threshold. 
+        if (playerOne.CurrentTilesMoved > tilesToWin && playerTwo.CurrentTilesMoved > tilesToWin)
+        {
+            GameWon();
+            return;
+        }
+        
+        // Player one and two have both rolled.
+        if ((!playerOne.CanRoll && !playerTwo.CanRoll) && (playerOne.CurrentRollState == RollState.Rolled 
+                                                           && playerTwo.CurrentRollState == RollState.Rolled))
+        {
+            playerOne.CanRoll = true;
+            playerOne.CurrentRollState = RollState.Idle;
+            playerTwo.CanRoll = true;
+            playerTwo.CurrentRollState = RollState.Idle;
+            
+            Debug.Log("Round over");
+        }
+
+        // Both players want to swap their dice rolls.
+        if (playerOne.WantsToSwap && playerTwo.WantsToSwap)
+        {
+            SwapDiceValues();
+        }
     }
 
-    private void LeftPlayerSwap()
+    private void GameWon()
     {
-        string bind = inputReader.GetBinding( "Gameplay/LeftPlayerSwap");
-        Debug.Log(bind);
+        if (_gameWon) return;
+        _gameWon = true;
+        OnWin?.Invoke();
+    }
+    
+    private void SwapDiceValues()
+    {
+        byte temp = playerOne.CurrentRoll;
+        playerOne.UpdateCurrentRoll(playerTwo.CurrentRoll);
+        playerTwo.UpdateCurrentRoll(temp);
+
+        playerOne.WantsToSwap = false;
+        playerTwo.WantsToSwap = false;
     }
 
-    private void RightPlayerRoll()
+    private void LeftPlayerRoll() => PlayerRoll(playerOne);
+    private void LeftPlayerSwap() => PlayerSwap(playerOne);
+
+    private void RightPlayerRoll() => PlayerRoll(playerTwo);
+    private void RightPlayerSwap() => PlayerSwap(playerTwo);
+
+    private void PlayerRoll(PlayerSO player)
     {
-        string bind = inputReader.GetBinding( "Gameplay/RightPlayerRoll");
-        Debug.Log(bind);
+        switch (player.CurrentRollState)
+        {
+            case RollState.Idle:
+                // The roll state may be 'rolled', but the player isn't currently allowed to do anything (e.g. waiting
+                // for the other player to roll).
+                if (!player.CanRoll || player.CurrentTilesMoved > tilesToWin) break;
+
+                byte roll = RollDice();
+                player.UpdateCurrentRoll(roll);
+                
+                player.CurrentRollState = RollState.Rolled;
+                
+                // TODO: display the roll value and a message stating to press again to confirm.
+                
+                break;
+            case RollState.Rolled:
+                if (!player.CanRoll || player.CurrentTilesMoved > tilesToWin) break;
+                
+                player.MovePlayer(player.CurrentRoll);
+                player.UpdateTilesMoved(player.CurrentRoll);
+                
+                player.CanRoll = false;
+                
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        
+        /*if (player.CurrentRollState == RollState.Rolled)
+        {
+            player.CurrentRollState = RollState.Confirmed;
+        }
+        
+        if (!player.CanRoll || player.CurrentTilesMoved > tilesToWin) return;
+        
+        byte roll = RollDice();
+        
+        player.MovePlayer(roll);
+        player.CurrentRollChanged(roll);
+        player.UpdateTilesMoved(roll);
+
+        player.CanRoll = false;
+        player.CurrentRollState = RollState.Rolled;*/
     }
 
-    private void RightPlayerSwap()
+    private void PlayerSwap(PlayerSO player)
     {
-        string bind = inputReader.GetBinding( "Gameplay/RightPlayerSwap");
-        Debug.Log(bind);
+        if (!player.WantsToSwap && player.CurrentRollState == RollState.Rolled)
+        {
+            player.WantsToSwap = true;
+        }
     }
 
-    private byte RollDice()
+    private static byte RollDice()
     {
-        // return number;
-        return 0; // temp to resolve return error
+        byte randomNumber = (byte) Random.Range(1, 6);
+        return randomNumber;
     } 
 }
+

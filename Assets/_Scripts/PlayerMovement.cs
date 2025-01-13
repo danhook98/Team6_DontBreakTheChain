@@ -1,8 +1,13 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Player Data Reference")]
+    [SerializeField] private PlayerSO player;
+    
+    [Header("Movement Variables")]
     [SerializeField] private AnimationCurve movementCurve;
     [SerializeField] private float moveTime = 0.5f;
     
@@ -11,7 +16,17 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _currentPosition;
     private Vector3 _goalPosition;
 
-    private void Start()
+    private void OnEnable()
+    {
+        player.OnMove += Move;
+    }
+
+    private void OnDisable()
+    {
+        player.OnMove -= Move;
+    }
+
+    private void Awake()
     {
         _playerTransform = GetComponent<Transform>();
     }
@@ -33,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         _playerTransform.position = _goalPosition;
     }
     
-    public void Move(byte steps)
+    private void Move(byte steps)
     {
         Vector3 movement = Vector3.forward * steps;
         _goalPosition = _playerTransform.position + movement;
