@@ -149,25 +149,9 @@ public class GameController : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException();
         }
-        
-        /*if (player.CurrentRollState == RollState.Rolled)
-        {
-            player.CurrentRollState = RollState.Confirmed;
-        }
-        
-        if (!player.CanRoll || player.CurrentTilesMoved > tilesToWin) return;
-        
-        byte roll = RollDice();
-        
-        player.MovePlayer(roll);
-        player.CurrentRollChanged(roll);
-        player.UpdateTilesMoved(roll);
-
-        player.CanRoll = false;
-        player.CurrentRollState = RollState.Rolled;*/
     }
 
-    private void PlayerSwap(PlayerSO player)
+    private static void PlayerSwap(PlayerSO player)
     {
         if (!player.WantsToSwap && player.CurrentRollState == RollState.Rolled)
         {
