@@ -46,7 +46,9 @@ public class PlayerMovement : MonoBehaviour
 
         while (elapsedTime < timeToMove)
         {
-            _rigidbody.position = Vector3.Lerp(_currentPosition, _goalPosition, movementCurve.Evaluate(elapsedTime / timeToMove ) );
+            Vector3 lerpPosition = Vector3.Lerp(_currentPosition, _goalPosition,
+                movementCurve.Evaluate(elapsedTime / timeToMove));
+            _rigidbody.MovePosition(lerpPosition);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -70,6 +72,5 @@ public class PlayerMovement : MonoBehaviour
     {
         _goalPosition = startPosition;
         StartCoroutine(MovePlayer(introMoveTime));
-        // _rigidbody.MovePosition(startPosition);
     }
 }

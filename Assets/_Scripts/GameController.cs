@@ -16,6 +16,9 @@ public class GameController : MonoBehaviour
     [SerializeField] private int tilesToWin = 30;
     [SerializeField] private Vector3 playerOneStartPosition;
     [SerializeField] private Vector3 playerTwoStartPosition;
+    
+    [Header("Chain references")]
+    [SerializeField] private HingeJoint chainCentreHinge;
 
     private bool _gameWon = false;
     
@@ -49,6 +52,12 @@ public class GameController : MonoBehaviour
     // Main game loop.
     private void Update()
     {
+        // The chain breaks! The '7.0f' is a magic number as the chain length cannot dynamically change. 
+        if (Vector3.Distance(playerOne.Position, playerTwo.Position) >= 7.0f)
+        {
+            Destroy(chainCentreHinge);
+        }
+        
         // Player one and two have both passed the win threshold. 
         if (playerOne.CurrentTilesMoved > tilesToWin && playerTwo.CurrentTilesMoved > tilesToWin)
         {

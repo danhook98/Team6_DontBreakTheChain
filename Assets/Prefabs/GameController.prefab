@@ -48,6 +48,9 @@ MonoBehaviour:
   playerOne: {fileID: 11400000, guid: 250e4c891a4a5af498d312a43d0303a4, type: 2}
   playerTwo: {fileID: 11400000, guid: e2635e72ee7ac3e4e9fe3ea0f04ed190, type: 2}
   tilesToWin: 30
+  playerOneStartPosition: {x: -2.5, y: 0, z: 0}
+  playerTwoStartPosition: {x: 2.5, y: 0, z: 0}
+  chainCentreHinge: {fileID: 0}
   OnWin:
     m_PersistentCalls:
       m_Calls:

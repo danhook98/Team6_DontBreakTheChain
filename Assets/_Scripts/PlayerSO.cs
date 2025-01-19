@@ -5,7 +5,10 @@ using UnityEngine.Events;
 public class PlayerSO : ScriptableObject
 {
     public string Name;
+
+    public Vector3 Position { get; set; }
     
+    // Dice-centric variables.
     public byte CurrentRoll { get; private set; }
     public RollState CurrentRollState { get; set; }
     public byte CurrentTilesMoved { get; private set; }
@@ -14,6 +17,7 @@ public class PlayerSO : ScriptableObject
 
     private void OnEnable()
     {
+        Position = Vector3.zero;
         CurrentRoll = 0;
         CurrentRollState = RollState.Idle;
         CurrentTilesMoved = 0;
