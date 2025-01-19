@@ -2276,6 +2276,9 @@ MonoBehaviour:
   lanePrefab: {fileID: 2676454350753435128, guid: 35f9a5cac7f0212448907cb84b492bdb,
     type: 3}
   laneOffset: {x: 0, y: 1.1, z: 0}
+  laneBasePrefab: {fileID: 1297707070886747416, guid: 195321b1e30224b45a3170da8826cc8f,
+    type: 3}
+  laneBaseOffset: {x: 0, y: 1.4, z: 0}
 --- !u!1 &1413469385 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5824510187379060028, guid: dfd4cb9b4ee047542adb314b2fcff0f1,

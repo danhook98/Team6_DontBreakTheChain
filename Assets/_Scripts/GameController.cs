@@ -57,6 +57,9 @@ public class GameController : MonoBehaviour
         // Generate the tiles along each player's path.
         tileGenerator.GenerateTiles(playerOneStartPosition, tilesToWin);
         tileGenerator.GenerateTiles(playerTwoStartPosition, tilesToWin);
+        
+        // Generate the base. 
+        tileGenerator.GenerateBase(Vector3.forward * -1, tilesToWin);
     }
 
     // Main game loop.
