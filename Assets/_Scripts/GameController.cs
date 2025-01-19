@@ -21,8 +21,10 @@ public class GameController : MonoBehaviour
     [SerializeField] private HingeJoint chainCentreHinge;
 
     private bool _gameWon = false;
+    private bool _gameLost = false;
     
     public UnityEvent OnWin;
+    public UnityEvent OnLose;
 
     // Subscribe to the input events from the Input Reader.
     private void OnEnable()
@@ -52,10 +54,14 @@ public class GameController : MonoBehaviour
     // Main game loop.
     private void Update()
     {
+        if (_gameWon || _gameLost) return;
+        
         // The chain breaks! The '7.0f' is a magic number as the chain length cannot dynamically change. 
         if (Vector3.Distance(playerOne.Position, playerTwo.Position) >= 7.0f)
         {
             Destroy(chainCentreHinge);
+            GameLost();
+            return;
         }
         
         // Player one and two have both passed the win threshold. 
@@ -89,6 +95,13 @@ public class GameController : MonoBehaviour
         if (_gameWon) return;
         _gameWon = true;
         OnWin?.Invoke();
+    }
+
+    private void GameLost()
+    {
+        if (_gameLost) return;
+        _gameLost = true;
+        OnLose?.Invoke();
     }
     
     private void SwapDiceValues()
