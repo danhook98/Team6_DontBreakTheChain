@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement Variables")]
     [SerializeField] private AnimationCurve movementCurve;
     [SerializeField] private float moveTime = 0.5f;
+    [SerializeField] private float introMoveTime = 1.5f;
     
     private Rigidbody _rigidbody;
 
@@ -33,33 +34,42 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
     }
 
-    private IEnumerator MovePlayer()
+    private void FixedUpdate()
+    {
+        player.Position = _rigidbody.position;
+    }
+
+    private IEnumerator MovePlayer(float timeToMove)
     {
         float elapsedTime = 0f;
         _currentPosition = _rigidbody.position;
 
-        while (elapsedTime < moveTime)
+        while (elapsedTime < timeToMove)
         {
-            _rigidbody.position = Vector3.Lerp(_currentPosition, _goalPosition, movementCurve.Evaluate(elapsedTime / moveTime ) );
+            _rigidbody.position = Vector3.Lerp(_currentPosition, _goalPosition, movementCurve.Evaluate(elapsedTime / timeToMove ) );
             elapsedTime += Time.deltaTime;
             yield return null;
         }
         
         // Set the player object's position to the goal position. Even though it's been lerped, the final position will 
         // be a very small distance away from the goal position. 
-        _rigidbody.position = _goalPosition;
+        _rigidbody.MovePosition(_goalPosition);
     }
+
+    // Move overload for use by the move event.
+    private void Move(byte steps) => Move(steps, moveTime);
     
-    private void Move(byte steps)
+    private void Move(byte steps, float time)
     {
         Vector3 movement = Vector3.forward * steps;
         _goalPosition = _rigidbody.position + movement;
-        StartCoroutine(MovePlayer());
+        StartCoroutine(MovePlayer(time));
     }
 
     private void SetStartPosition(Vector3 startPosition)
     {
-        Debug.Log(startPosition);
-        _rigidbody.MovePosition(startPosition);
+        _goalPosition = startPosition;
+        StartCoroutine(MovePlayer(introMoveTime));
+        // _rigidbody.MovePosition(startPosition);
     }
 }
