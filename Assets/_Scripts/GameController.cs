@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour
     
     [Header("Game variables")] 
     [SerializeField] private int tilesToWin = 30;
+    [SerializeField] private Vector3 playerOneStartPosition;
+    [SerializeField] private Vector3 playerTwoStartPosition;
 
     private bool _gameWon = false;
     
@@ -36,6 +38,12 @@ public class GameController : MonoBehaviour
         inputReader.LeftPlayerSwapEvent -= LeftPlayerSwap;
         inputReader.RightPlayerRollEvent -= RightPlayerRoll;
         inputReader.RightPlayerSwapEvent -= RightPlayerSwap;
+    }
+
+    private void Start()
+    {
+        playerOne.SetStartPosition(playerOneStartPosition);
+        playerTwo.SetStartPosition(playerTwoStartPosition);
     }
 
     // Main game loop.
