@@ -614,8 +614,13 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 7370187608695217170, guid: 11f86f2d843882b4abb28fb46e6cf9c3,
         type: 3}
+      propertyPath: moveTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370187608695217170, guid: 11f86f2d843882b4abb28fb46e6cf9c3,
+        type: 3}
       propertyPath: introMoveTime
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2512,8 +2517,13 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 7370187608695217170, guid: 11f86f2d843882b4abb28fb46e6cf9c3,
         type: 3}
+      propertyPath: moveTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370187608695217170, guid: 11f86f2d843882b4abb28fb46e6cf9c3,
+        type: 3}
       propertyPath: introMoveTime
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
