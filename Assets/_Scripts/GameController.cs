@@ -7,13 +7,16 @@ public class GameController : MonoBehaviour
 {
     [Header("Input Reader")]
     [SerializeField] private InputReader inputReader;
+    
+    [Header("Tile Generator")]
+    [SerializeField] private TileGenerator tileGenerator;
 
     [Header("Player Data References")] 
     [SerializeField] private PlayerSO playerOne;
     [SerializeField] private PlayerSO playerTwo;
     
     [Header("Game variables")] 
-    [SerializeField] private int tilesToWin = 30;
+    [SerializeField] private byte tilesToWin = 30;
     [SerializeField] private Vector3 playerOneStartPosition;
     [SerializeField] private Vector3 playerTwoStartPosition;
     
@@ -47,8 +50,16 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        // Set the start positions for the players. This slowly moves them to the point from offscreen.
         playerOne.SetStartPosition(playerOneStartPosition);
         playerTwo.SetStartPosition(playerTwoStartPosition);
+        
+        // Generate the tiles along each player's path.
+        tileGenerator.GenerateTiles(playerOneStartPosition, tilesToWin);
+        tileGenerator.GenerateTiles(playerTwoStartPosition, tilesToWin);
+        
+        // Generate the base. 
+        tileGenerator.GenerateBase(Vector3.forward * -1, tilesToWin);
     }
 
     // Main game loop.
@@ -65,7 +76,7 @@ public class GameController : MonoBehaviour
         }
         
         // Player one and two have both passed the win threshold. 
-        if (playerOne.CurrentTilesMoved > tilesToWin && playerTwo.CurrentTilesMoved > tilesToWin)
+        if (playerOne.CurrentTilesMoved >= tilesToWin && playerTwo.CurrentTilesMoved >= tilesToWin)
         {
             GameWon();
             return;
