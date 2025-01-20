@@ -2496,33 +2496,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1340137880}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1404401320 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5271811533599109990, guid: 5de74bf1b6117da49b609035fb2e98d5,
-    type: 3}
-  m_PrefabInstance: {fileID: 1823259710}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1404401323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1404401320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99d7bac5af0f4740afd929cb73d020d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tileStepPrefab: {fileID: 8858383663923584820, guid: 4fe7269589df5c24ab62432992f7620e,
-    type: 3}
-  tileStepOffset: {x: 0, y: 1, z: 0}
-  lanePrefab: {fileID: 2676454350753435128, guid: 35f9a5cac7f0212448907cb84b492bdb,
-    type: 3}
-  laneOffset: {x: 0, y: 1.1, z: 0}
-  laneBasePrefab: {fileID: 1297707070886747416, guid: 195321b1e30224b45a3170da8826cc8f,
-    type: 3}
-  laneBaseOffset: {x: 0, y: 1.4, z: 0}
 --- !u!1 &1413469385 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5824510187379060028, guid: dfd4cb9b4ee047542adb314b2fcff0f1,
@@ -3235,11 +3208,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
         type: 3}
-      propertyPath: tileGenerator
-      value: 
-      objectReference: {fileID: 1404401323}
-    - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
-        type: 3}
       propertyPath: chainCentreHinge
       value: 
       objectReference: {fileID: 76378817}
@@ -3256,11 +3224,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5271811533599109990, guid: 5de74bf1b6117da49b609035fb2e98d5,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1404401323}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5de74bf1b6117da49b609035fb2e98d5, type: 3}
 --- !u!1001 &1846460510
 PrefabInstance:
