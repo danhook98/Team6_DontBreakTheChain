@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] Canvas StartScreen;
-    [SerializeField] Canvas OptionScreen;
-    [SerializeField] Canvas MainScreen;
+    [SerializeField] private Canvas StartScreen;
+    [SerializeField] private Canvas OptionScreen;
+    [SerializeField] private Canvas MainScreen;
+
+    [SerializeField] private GameTypeSO gameType;
 
     public void OpenStartScreen()
     {
@@ -41,11 +40,13 @@ public class MainMenu : MonoBehaviour
 
     public void StartSinglePlayer()
     {
-        SceneManager.LoadScene(0);
+        gameType.opponentIsAi = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void StartingMultiplayer()
     {
-        SceneManager.LoadScene(1);
+        gameType.opponentIsAi = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

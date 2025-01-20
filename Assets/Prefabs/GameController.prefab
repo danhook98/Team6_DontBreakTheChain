@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 736292565499761762}
   - component: {fileID: 8184019765757364106}
+  - component: {fileID: 315801172880588471}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -45,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputReader: {fileID: 11400000, guid: 8606d8c2d7442b946a9d5fbcac6d61fd, type: 2}
+  tileGenerator: {fileID: 315801172880588471}
   playerOne: {fileID: 11400000, guid: 250e4c891a4a5af498d312a43d0303a4, type: 2}
   playerTwo: {fileID: 11400000, guid: e2635e72ee7ac3e4e9fe3ea0f04ed190, type: 2}
   tilesToWin: 30
@@ -81,3 +83,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &315801172880588471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5271811533599109990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99d7bac5af0f4740afd929cb73d020d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileStepPrefab: {fileID: 8858383663923584820, guid: 4fe7269589df5c24ab62432992f7620e,
+    type: 3}
+  tileStepOffset: {x: 0, y: 1, z: 0}
+  lanePrefab: {fileID: 2676454350753435128, guid: 35f9a5cac7f0212448907cb84b492bdb,
+    type: 3}
+  laneOffset: {x: 0, y: 1.1, z: 0}
+  laneBasePrefab: {fileID: 1297707070886747416, guid: 195321b1e30224b45a3170da8826cc8f,
+    type: 3}
+  laneBaseOffset: {x: 0, y: 1.4, z: 0}

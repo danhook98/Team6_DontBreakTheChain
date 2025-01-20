@@ -7,6 +7,9 @@ public class GameController : MonoBehaviour
 {
     [Header("Input Reader")]
     [SerializeField] private InputReader inputReader;
+
+    [Header("Game Type SO")]
+    [SerializeField] private GameTypeSO gameType;
     
     [Header("Tile Generator")]
     [SerializeField] private TileGenerator tileGenerator;
@@ -22,6 +25,8 @@ public class GameController : MonoBehaviour
     
     [Header("Chain references")]
     [SerializeField] private HingeJoint chainCentreHinge;
+
+    private bool _isComputerOpponent;
 
     private bool _gameWon = false;
     private bool _gameLost = false;
@@ -60,6 +65,8 @@ public class GameController : MonoBehaviour
         
         // Generate the base. 
         tileGenerator.GenerateBase(Vector3.forward * -1, tilesToWin);
+
+        _isComputerOpponent = gameType.opponentIsAi;
     }
 
     // Main game loop.
@@ -125,14 +132,46 @@ public class GameController : MonoBehaviour
         playerTwo.WantsToSwap = false;
     }
 
-    private void LeftPlayerRoll() => PlayerRoll(playerOne);
-    private void LeftPlayerSwap() => PlayerSwap(playerOne);
+    private void LeftPlayerRoll()
+    {
+        PlayerRoll(playerOne);
 
-    private void RightPlayerRoll() => PlayerRoll(playerTwo);
-    private void RightPlayerSwap() => PlayerSwap(playerTwo);
+        if (_isComputerOpponent)
+        {
+            PlayerRoll(playerTwo);
+        }
+    }
+
+    private void LeftPlayerSwap()
+    {
+        PlayerSwap(playerOne);
+
+        if (_isComputerOpponent)
+        {
+            PlayerSwap(playerTwo);
+        }
+    }
+
+    private void RightPlayerRoll()
+    {
+        if (!_isComputerOpponent)
+        {
+            PlayerRoll(playerTwo);
+        }
+    }
+
+    private void RightPlayerSwap()
+    {
+        if (!_isComputerOpponent)
+        {
+            PlayerSwap(playerTwo);
+        }
+    }
 
     private void PlayerRoll(PlayerSO player)
     {
+        if (_gameWon || _gameLost) return;
+        
         switch (player.CurrentRollState)
         {
             case RollState.Idle:
@@ -162,8 +201,10 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private static void PlayerSwap(PlayerSO player)
+    private void PlayerSwap(PlayerSO player)
     {
+        if (_gameWon || _gameLost) return;
+        
         if (!player.WantsToSwap && player.CurrentRollState == RollState.Rolled)
         {
             player.WantsToSwap = true;

@@ -2378,6 +2378,7 @@ MonoBehaviour:
   StartScreen: {fileID: 546112839}
   OptionScreen: {fileID: 867709971}
   MainScreen: {fileID: 1596410447}
+  gameType: {fileID: 11400000, guid: 87ebd3c497c46f1489aa4283412eb138, type: 2}
 --- !u!1 &1820494165
 GameObject:
   m_ObjectHideFlags: 0
