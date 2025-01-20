@@ -7,6 +7,9 @@ public class GameController : MonoBehaviour
 {
     [Header("Input Reader")]
     [SerializeField] private InputReader inputReader;
+
+    [Header("Game Type SO")]
+    [SerializeField] private GameTypeSO gameType;
     
     [Header("Tile Generator")]
     [SerializeField] private TileGenerator tileGenerator;
@@ -23,7 +26,7 @@ public class GameController : MonoBehaviour
     [Header("Chain references")]
     [SerializeField] private HingeJoint chainCentreHinge;
 
-    private bool _isComputerOpponent = true;
+    private bool _isComputerOpponent;
 
     private bool _gameWon = false;
     private bool _gameLost = false;
@@ -62,6 +65,8 @@ public class GameController : MonoBehaviour
         
         // Generate the base. 
         tileGenerator.GenerateBase(Vector3.forward * -1, tilesToWin);
+
+        _isComputerOpponent = gameType.opponentIsAi;
     }
 
     // Main game loop.
