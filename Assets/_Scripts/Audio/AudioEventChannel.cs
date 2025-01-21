@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events; 
 
-public class AudioEventChannel : MonoBehaviour
+[CreateAssetMenu(fileName = "Audio_Event_Channel", menuName = "ChainGame/Audio/Audio Event Channel")]
+public class AudioEventChannel : ScriptableObject
 {
     public event UnityAction<AudioClipSO> OnPlayAudioEvent; 
     
