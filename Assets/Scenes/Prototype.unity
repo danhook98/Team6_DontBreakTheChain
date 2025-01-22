@@ -3385,6 +3385,12 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
         type: 3}
+      propertyPath: gameLostAudioClip
+      value: 
+      objectReference: {fileID: 11400000, guid: 59786a0ee4a5da94ea791e1c6490233b,
+        type: 2}
+    - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
+        type: 3}
       propertyPath: rollDiceAudioClip
       value: 
       objectReference: {fileID: 11400000, guid: 0eaf2a6b3a8cfe742ac7300a4bba7220,

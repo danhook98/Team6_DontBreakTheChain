@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private AudioClipSO moveAudioClip;
     [SerializeField] private AudioClipSO chainSnapAudioClip;
     [SerializeField] private AudioClipSO gameWonAudioClip;
+    [SerializeField] private AudioClipSO gameLostAudioClip;
 
     [Header("Game Type SO")]
     [SerializeField] private GameTypeSO gameType;
@@ -129,6 +130,7 @@ public class GameController : MonoBehaviour
     {
         if (_gameLost) return;
         _gameLost = true;
+        audioChannel.PlayAudioOneShot(gameLostAudioClip);
         OnLose?.Invoke();
     }
 
