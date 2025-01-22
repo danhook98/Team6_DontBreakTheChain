@@ -37,6 +37,9 @@ public class GameController : MonoBehaviour
     [Header("Chain references")]
     [SerializeField] private HingeJoint chainCentreHinge;
 
+
+    private byte _score = 0;
+    
     private bool _isComputerOpponent;
 
     private bool _gameWon = false;
@@ -52,6 +55,9 @@ public class GameController : MonoBehaviour
         inputReader.LeftPlayerSwapEvent += LeftPlayerSwap;
         inputReader.RightPlayerRollEvent += RightPlayerRoll;
         inputReader.RightPlayerSwapEvent += RightPlayerSwap;
+        
+        playerOne.OnScoreChanged += IncreaseScore;
+        playerTwo.OnScoreChanged += IncreaseScore;
     }
 
     // Unsubscribe from the input events when this game object gets disabled. Failure to unsubscribe would cause the 
@@ -62,6 +68,9 @@ public class GameController : MonoBehaviour
         inputReader.LeftPlayerSwapEvent -= LeftPlayerSwap;
         inputReader.RightPlayerRollEvent -= RightPlayerRoll;
         inputReader.RightPlayerSwapEvent -= RightPlayerSwap;
+        
+        playerOne.OnScoreChanged -= IncreaseScore;
+        playerTwo.OnScoreChanged -= IncreaseScore;
     }
 
     private void Start()
@@ -233,6 +242,15 @@ public class GameController : MonoBehaviour
         
         playerOne.WantsToSwap = false;
         playerTwo.WantsToSwap = false;
+    }
+
+    private void IncreaseScore()
+    {
+        _score++;
+        
+        Debug.Log($"Score: {_score}");
+        
+        // TODO: update displayed score.
     }
 
     private static byte RollDice()
