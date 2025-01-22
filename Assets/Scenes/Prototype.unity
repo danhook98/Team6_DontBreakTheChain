@@ -3253,68 +3253,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
         type: 3}
-      propertyPath: gameType
-      value: 
-      objectReference: {fileID: 11400000, guid: 87ebd3c497c46f1489aa4283412eb138,
-        type: 2}
-    - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
-        type: 3}
-      propertyPath: audioChannel
-      value: 
-      objectReference: {fileID: 11400000, guid: ef0819a85e40aa94cb5488b82b92148e,
-        type: 2}
-    - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
-        type: 3}
-      propertyPath: moveAudioClip
-      value: 
-      objectReference: {fileID: 11400000, guid: effc91dadae28ef4f87101b304da8e82,
-        type: 2}
-    - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
-        type: 3}
       propertyPath: chainCentreHinge
       value: 
       objectReference: {fileID: 76378817}
-    - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
-        type: 3}
-      propertyPath: gameWonAudioClip
-      value: 
-      objectReference: {fileID: 11400000, guid: 9cf316a26ed5c544e9f803d27845315a,
-        type: 2}
-    - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
-        type: 3}
-      propertyPath: diceSwapAudioClip
-      value: 
-      objectReference: {fileID: 11400000, guid: 63f9dbf92f2fc7244b00697712e3e979,
-        type: 2}
-    - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
-        type: 3}
-      propertyPath: gameLostAudioClip
-      value: 
-      objectReference: {fileID: 11400000, guid: 59786a0ee4a5da94ea791e1c6490233b,
-        type: 2}
-    - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
-        type: 3}
-      propertyPath: rollDiceAudioClip
-      value: 
-      objectReference: {fileID: 11400000, guid: 0eaf2a6b3a8cfe742ac7300a4bba7220,
-        type: 2}
-    - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
-        type: 3}
-      propertyPath: chainSnapAudioClip
-      value: 
-      objectReference: {fileID: 11400000, guid: 7e532df0323871247bbeb6e6db227749,
-        type: 2}
-    - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
-        type: 3}
-      propertyPath: backgroundMusicVolume
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
-        type: 3}
-      propertyPath: backgroundMusicAudioClip
-      value: 
-      objectReference: {fileID: 11400000, guid: b6910c4294bf7864eb69165724dc5426,
-        type: 2}
     - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
         type: 3}
       propertyPath: OnWin.m_PersistentCalls.m_Calls.Array.data[0].m_Target
