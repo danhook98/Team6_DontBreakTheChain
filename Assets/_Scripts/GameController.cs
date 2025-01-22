@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private AudioClipSO chainSnapAudioClip;
     [SerializeField] private AudioClipSO gameWonAudioClip;
     [SerializeField] private AudioClipSO gameLostAudioClip;
+    [SerializeField] private AudioClipSO backgroundMusicAudioClip;
+    [SerializeField][Range(0, 1)] private float backgroundMusicVolume = 0.2f;
 
     [Header("Game Type SO")]
     [SerializeField] private GameTypeSO gameType;
@@ -76,6 +78,8 @@ public class GameController : MonoBehaviour
         tileGenerator.GenerateBase(Vector3.forward * -1, tilesToWin);
 
         _isComputerOpponent = gameType.opponentIsAi;
+        
+        audioChannel.PlayAudio(backgroundMusicAudioClip, backgroundMusicVolume);
     }
 
     // Main game loop.
