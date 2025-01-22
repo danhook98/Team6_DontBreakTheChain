@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private AudioClipSO diceSwapAudioClip;
     [SerializeField] private AudioClipSO moveAudioClip;
     [SerializeField] private AudioClipSO chainSnapAudioClip;
+    [SerializeField] private AudioClipSO gameWonAudioClip;
 
     [Header("Game Type SO")]
     [SerializeField] private GameTypeSO gameType;
@@ -120,6 +121,7 @@ public class GameController : MonoBehaviour
     {
         if (_gameWon) return;
         _gameWon = true;
+        audioChannel.PlayAudioOneShot(gameWonAudioClip);
         OnWin?.Invoke();
     }
 
