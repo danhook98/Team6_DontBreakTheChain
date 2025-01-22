@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87708278a242467a85e5000bba96b322, type: 3}
   m_Name: AudioClip_DiceRoll
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 0}
+  audioClip: {fileID: 8300000, guid: f026ecf78e325d6419c984e46fd52091, type: 3}

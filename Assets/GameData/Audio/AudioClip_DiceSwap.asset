@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87708278a242467a85e5000bba96b322, type: 3}
   m_Name: AudioClip_DiceSwap
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 0}
+  audioClip: {fileID: 8300000, guid: 60173bbd8257e9340a0d7e5007a26ac7, type: 3}

@@ -3356,9 +3356,33 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
         type: 3}
+      propertyPath: audioChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: ef0819a85e40aa94cb5488b82b92148e,
+        type: 2}
+    - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
+        type: 3}
+      propertyPath: moveAudioClip
+      value: 
+      objectReference: {fileID: 11400000, guid: effc91dadae28ef4f87101b304da8e82,
+        type: 2}
+    - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
+        type: 3}
       propertyPath: chainCentreHinge
       value: 
       objectReference: {fileID: 76378817}
+    - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
+        type: 3}
+      propertyPath: diceSwapAudioClip
+      value: 
+      objectReference: {fileID: 11400000, guid: 63f9dbf92f2fc7244b00697712e3e979,
+        type: 2}
+    - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
+        type: 3}
+      propertyPath: rollDiceAudioClip
+      value: 
+      objectReference: {fileID: 11400000, guid: 0eaf2a6b3a8cfe742ac7300a4bba7220,
+        type: 2}
     - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
         type: 3}
       propertyPath: OnWin.m_PersistentCalls.m_Calls.Array.data[0].m_Target
