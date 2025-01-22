@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87708278a242467a85e5000bba96b322, type: 3}
   m_Name: AudioClip_ChainBreak
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 0}
+  audioClip: {fileID: 8300000, guid: 03f729b8d97e0da47bfab9c8fdf70238, type: 3}

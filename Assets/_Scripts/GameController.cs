@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private AudioClipSO rollDiceAudioClip; 
     [SerializeField] private AudioClipSO diceSwapAudioClip;
     [SerializeField] private AudioClipSO moveAudioClip;
+    [SerializeField] private AudioClipSO chainSnapAudioClip;
 
     [Header("Game Type SO")]
     [SerializeField] private GameTypeSO gameType;
@@ -84,6 +85,7 @@ public class GameController : MonoBehaviour
         if (Vector3.Distance(playerOne.Position, playerTwo.Position) >= 7.0f)
         {
             Destroy(chainCentreHinge);
+            audioChannel.PlayAudioOneShot(chainSnapAudioClip);
             GameLost();
             return;
         }
