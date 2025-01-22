@@ -8,6 +8,20 @@ public class GameController : MonoBehaviour
     [Header("Input Reader")]
     [SerializeField] private InputReader inputReader;
     
+    [Header("Audio")]
+    [SerializeField] private AudioEventChannel audioChannel;
+    [SerializeField] private AudioClipSO rollDiceAudioClip; 
+    [SerializeField] private AudioClipSO diceSwapAudioClip;
+    [SerializeField] private AudioClipSO moveAudioClip;
+    [SerializeField] private AudioClipSO chainSnapAudioClip;
+    [SerializeField] private AudioClipSO gameWonAudioClip;
+    [SerializeField] private AudioClipSO gameLostAudioClip;
+    [SerializeField] private AudioClipSO backgroundMusicAudioClip;
+    [SerializeField][Range(0, 1)] private float backgroundMusicVolume = 0.2f;
+
+    [Header("Game Type SO")]
+    [SerializeField] private GameTypeSO gameType;
+    
     [Header("Tile Generator")]
     [SerializeField] private TileGenerator tileGenerator;
 
@@ -23,7 +37,10 @@ public class GameController : MonoBehaviour
     [Header("Chain references")]
     [SerializeField] private HingeJoint chainCentreHinge;
 
+
     private byte _score = 0;
+    
+    private bool _isComputerOpponent;
 
     private bool _gameWon = false;
     private bool _gameLost = false;
@@ -68,6 +85,10 @@ public class GameController : MonoBehaviour
         
         // Generate the base. 
         tileGenerator.GenerateBase(Vector3.forward * -1, tilesToWin);
+
+        _isComputerOpponent = gameType.opponentIsAi;
+        
+        audioChannel.PlayAudio(backgroundMusicAudioClip, backgroundMusicVolume);
     }
 
     // Main game loop.
@@ -79,6 +100,7 @@ public class GameController : MonoBehaviour
         if (Vector3.Distance(playerOne.Position, playerTwo.Position) >= 7.0f)
         {
             Destroy(chainCentreHinge);
+            audioChannel.PlayAudioOneShot(chainSnapAudioClip);
             GameLost();
             return;
         }
@@ -113,6 +135,7 @@ public class GameController : MonoBehaviour
     {
         if (_gameWon) return;
         _gameWon = true;
+        audioChannel.PlayAudioOneShot(gameWonAudioClip);
         OnWin?.Invoke();
     }
 
@@ -120,27 +143,50 @@ public class GameController : MonoBehaviour
     {
         if (_gameLost) return;
         _gameLost = true;
+        audioChannel.PlayAudioOneShot(gameLostAudioClip);
         OnLose?.Invoke();
     }
-    
-    private void SwapDiceValues()
-    {
-        byte temp = playerOne.CurrentRoll;
-        playerOne.UpdateCurrentRoll(playerTwo.CurrentRoll);
-        playerTwo.UpdateCurrentRoll(temp);
 
-        playerOne.WantsToSwap = false;
-        playerTwo.WantsToSwap = false;
+    private void LeftPlayerRoll()
+    {
+        PlayerRoll(playerOne);
+
+        if (_isComputerOpponent)
+        {
+            PlayerRoll(playerTwo, false);
+        }
     }
 
-    private void LeftPlayerRoll() => PlayerRoll(playerOne);
-    private void LeftPlayerSwap() => PlayerSwap(playerOne);
-
-    private void RightPlayerRoll() => PlayerRoll(playerTwo);
-    private void RightPlayerSwap() => PlayerSwap(playerTwo);
-
-    private void PlayerRoll(PlayerSO player)
+    private void LeftPlayerSwap()
     {
+        PlayerSwap(playerOne);
+
+        if (_isComputerOpponent)
+        {
+            PlayerSwap(playerTwo);
+        }
+    }
+
+    private void RightPlayerRoll()
+    {
+        if (!_isComputerOpponent)
+        {
+            PlayerRoll(playerTwo);
+        }
+    }
+
+    private void RightPlayerSwap()
+    {
+        if (!_isComputerOpponent)
+        {
+            PlayerSwap(playerTwo);
+        }
+    }
+
+    private void PlayerRoll(PlayerSO player, bool playAudio = true)
+    {
+        if (_gameWon || _gameLost) return;
+        
         switch (player.CurrentRollState)
         {
             case RollState.Idle:
@@ -153,6 +199,9 @@ public class GameController : MonoBehaviour
                 
                 player.CurrentRollState = RollState.Rolled;
                 
+                if (playAudio)
+                    audioChannel.PlayAudioOneShot(rollDiceAudioClip);
+                
                 // TODO: display the roll value and a message stating to press again to confirm.
                 
                 break;
@@ -163,6 +212,9 @@ public class GameController : MonoBehaviour
                 player.UpdateTilesMoved(player.CurrentRoll);
                 
                 player.CanRoll = false;
+
+                if (playAudio)
+                    audioChannel.PlayAudioOneShot(moveAudioClip);
                 
                 break;
             default:
@@ -170,12 +222,26 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private static void PlayerSwap(PlayerSO player)
+    private void PlayerSwap(PlayerSO player)
     {
+        if (_gameWon || _gameLost) return;
+        
         if (!player.WantsToSwap && player.CurrentRollState == RollState.Rolled)
         {
             player.WantsToSwap = true;
         }
+    }
+    
+    private void SwapDiceValues()
+    {
+        byte temp = playerOne.CurrentRoll;
+        playerOne.UpdateCurrentRoll(playerTwo.CurrentRoll);
+        playerTwo.UpdateCurrentRoll(temp);
+
+        audioChannel.PlayAudioOneShot(diceSwapAudioClip);
+        
+        playerOne.WantsToSwap = false;
+        playerTwo.WantsToSwap = false;
     }
 
     private void IncreaseScore()
