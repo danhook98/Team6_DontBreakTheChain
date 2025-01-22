@@ -7,6 +7,10 @@ public class GameController : MonoBehaviour
 {
     [Header("Input Reader")]
     [SerializeField] private InputReader inputReader;
+    
+    [Header("Audio")]
+    [SerializeField] private AudioEventChannel audioChannel;
+    [SerializeField] private AudioClipSO rollDiceAudioClip; 
 
     [Header("Game Type SO")]
     [SerializeField] private GameTypeSO gameType;
@@ -183,6 +187,8 @@ public class GameController : MonoBehaviour
                 player.UpdateCurrentRoll(roll);
                 
                 player.CurrentRollState = RollState.Rolled;
+                
+                audioChannel.PlayAudioOneShot(rollDiceAudioClip);
                 
                 // TODO: display the roll value and a message stating to press again to confirm.
                 
