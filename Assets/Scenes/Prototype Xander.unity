@@ -1981,7 +1981,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 11400000, guid: e2635e72ee7ac3e4e9fe3ea0f04ed190, type: 2}
-  ScoreText: {fileID: 482893489}
 --- !u!1001 &470051847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4646,7 +4645,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 11400000, guid: 250e4c891a4a5af498d312a43d0303a4, type: 2}
-  ScoreText: {fileID: 482893489}
 --- !u!1001 &1596019520
 PrefabInstance:
   m_ObjectHideFlags: 0
