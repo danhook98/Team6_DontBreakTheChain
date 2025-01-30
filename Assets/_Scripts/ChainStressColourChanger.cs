@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class ChainStressColourChanger : MonoBehaviour
 {
+    [SerializeField] private ChainEventChannel chainEventChannel;
+    
     [Header("Chain Anchor Point Vector Data References")]
     [SerializeField] private Vector3ValueSO anchorPointA;
     [SerializeField] private Vector3ValueSO anchorPointB;
@@ -15,11 +17,13 @@ public class ChainStressColourChanger : MonoBehaviour
     private float _distance;
     private WaitForSeconds _chainCheckInterval;
 
+    private bool _alreadyStressed = false;
+
     private void Start()
     {
         _dangerZoneDistance = maxDistanceToCheck * percentageToStartChanging;
-        _chainCheckInterval = new WaitForSeconds(0.25f);
-
+        _chainCheckInterval = new WaitForSeconds(0.5f);
+        
         StartCoroutine(RunChainStressCheck());
     }
 
@@ -31,9 +35,17 @@ public class ChainStressColourChanger : MonoBehaviour
         {
             _distance = Vector3.Distance(anchorPointA.value, anchorPointB.value);
 
-            if (_distance > _dangerZoneDistance)
+            if (_distance > _dangerZoneDistance && !_alreadyStressed)
             {
-                Debug.Log("Danger Zone");
+                _alreadyStressed = true;
+                Debug.Log("Stressed");
+                chainEventChannel.SetChainInDangerZone(_alreadyStressed);
+            }
+            else if (_distance < _dangerZoneDistance && _alreadyStressed)
+            {
+                _alreadyStressed = false;
+                Debug.Log("Relaxed");
+                chainEventChannel.SetChainInDangerZone(_alreadyStressed);
             }
             
             yield return _chainCheckInterval;
