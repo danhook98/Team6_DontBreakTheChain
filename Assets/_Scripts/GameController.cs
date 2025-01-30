@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
@@ -33,14 +34,16 @@ public class GameController : MonoBehaviour
     [SerializeField] private byte tilesToWin = 30;
     [SerializeField] private Vector3 playerOneStartPosition;
     [SerializeField] private Vector3 playerTwoStartPosition;
+    [SerializeField] private float playerInputCooldown = 0.75f;
     
     [Header("Chain references")]
     [SerializeField] private HingeJoint chainCentreHinge;
-
-
+    
     private byte _score = 0;
     
     private bool _isComputerOpponent;
+
+    private WaitForSeconds _inputCooldownDelay;
 
     private bool _gameWon = false;
     private bool _gameLost = false;
@@ -71,6 +74,11 @@ public class GameController : MonoBehaviour
         
         playerOne.OnScoreChanged -= IncreaseScore;
         playerTwo.OnScoreChanged -= IncreaseScore;
+    }
+
+    private void Awake()
+    {
+        _inputCooldownDelay = new WaitForSeconds(playerInputCooldown);
     }
 
     private void Start()
@@ -149,38 +157,62 @@ public class GameController : MonoBehaviour
 
     private void LeftPlayerRoll()
     {
+        if (playerOne.JustInput) return;
+        
         PlayerRoll(playerOne);
 
         if (_isComputerOpponent)
         {
             PlayerRoll(playerTwo, false);
+            PlayerInputCooldown(playerTwo);
         }
+        
+        PlayerInputCooldown(playerOne);
     }
 
     private void LeftPlayerSwap()
     {
+        if (playerOne.JustInput) return;
+        
         PlayerSwap(playerOne);
 
         if (_isComputerOpponent)
         {
             PlayerSwap(playerTwo);
+            PlayerInputCooldown(playerTwo);
         }
+        
+        PlayerInputCooldown(playerOne);
     }
 
     private void RightPlayerRoll()
     {
-        if (!_isComputerOpponent)
-        {
-            PlayerRoll(playerTwo);
-        }
+        if (playerTwo.JustInput) return;
+        if (_isComputerOpponent) return;
+        
+        PlayerRoll(playerTwo);
+        PlayerInputCooldown(playerTwo);
     }
 
     private void RightPlayerSwap()
     {
-        if (!_isComputerOpponent)
-        {
-            PlayerSwap(playerTwo);
-        }
+        if (playerTwo.JustInput) return;
+        if (_isComputerOpponent) return;
+        
+        PlayerSwap(playerTwo);
+        PlayerInputCooldown(playerTwo);
+    }
+
+    private void PlayerInputCooldown(PlayerSO player)
+    {
+        player.JustInput = true;
+        StartCoroutine(ResetPlayerJustInput(player));
+    }
+
+    private IEnumerator ResetPlayerJustInput(PlayerSO player)
+    {
+        yield return _inputCooldownDelay;
+        player.JustInput = false;
     }
 
     private void PlayerRoll(PlayerSO player, bool playAudio = true)
