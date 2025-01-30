@@ -6,6 +6,10 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Player Data Reference")]
     [SerializeField] private PlayerSO player;
+    [SerializeField] private Vector3ValueSO chainAnchorPointData;
+    
+    [Header("Component References")]
+    [SerializeField] private Transform anchorTransform;
     
     [Header("Movement Variables")]
     [SerializeField] private AnimationCurve movementCurve;
@@ -37,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         player.Position = _rigidbody.position;
+
+        chainAnchorPointData.value = anchorTransform.position; 
     }
 
     private IEnumerator MovePlayer(float timeToMove)

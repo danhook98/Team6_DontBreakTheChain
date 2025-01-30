@@ -3055,6 +3055,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1945274400}
+  - component: {fileID: 1945274401}
   m_Layer: 0
   m_Name: Chain
   m_TagString: Untagged
@@ -3084,6 +3085,22 @@ Transform:
   - {fileID: 1943221474}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1945274401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945274399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e8f0cefb2669245a020c44c51895f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anchorPointA: {fileID: 11400000, guid: 8c1202a79af17a4409035be5b603ba6e, type: 2}
+  anchorPointB: {fileID: 11400000, guid: 60d8c7e1e49afc34d96600fba5f728fe, type: 2}
+  maxDistanceToCheck: 7
+  percentageToStartChanging: 0.8
 --- !u!1 &1960876319 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5824510187379060028, guid: dfd4cb9b4ee047542adb314b2fcff0f1,

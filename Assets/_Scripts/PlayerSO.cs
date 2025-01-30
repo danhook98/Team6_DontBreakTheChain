@@ -29,6 +29,7 @@ public class PlayerSO : ScriptableObject
     public event UnityAction<Vector3> OnSetStartPosition;
     public event UnityAction<byte> OnCurrentRollChanged;
     public event UnityAction<byte> OnCurrentTilesMovedChanged;
+    public event UnityAction OnScoreChanged;
     
     public void MovePlayer(byte steps) => OnMove?.Invoke(steps);
     public void SetStartPosition(Vector3 startPosition) => OnSetStartPosition?.Invoke(startPosition);
@@ -44,4 +45,6 @@ public class PlayerSO : ScriptableObject
         CurrentTilesMoved += tiles;
         OnCurrentTilesMovedChanged?.Invoke(CurrentTilesMoved);
     } 
+    
+    public void IncrementScore() => OnScoreChanged?.Invoke();
 }
