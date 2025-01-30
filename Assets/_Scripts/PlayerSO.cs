@@ -6,14 +6,17 @@ public class PlayerSO : ScriptableObject
 {
     public string Name;
 
-    public Vector3 Position { get; set; }
+    public Vector3 Position { get; set; } = Vector3.zero;
     
     // Dice-centric variables.
-    public byte CurrentRoll { get; private set; }
-    public RollState CurrentRollState { get; set; }
-    public byte CurrentTilesMoved { get; private set; }
-    public bool CanRoll { get; set; }
-    public bool WantsToSwap { get; set; }
+    public byte CurrentRoll { get; private set; } = 0;
+    public RollState CurrentRollState { get; set; } = RollState.Idle;
+    public byte CurrentTilesMoved { get; private set; } = 0;
+    public bool CanRoll { get; set; } = true;
+    public bool WantsToSwap { get; set; } = false;
+    
+    // Other
+    public bool JustInput { get; set; } = false;
 
     private void OnEnable()
     {
