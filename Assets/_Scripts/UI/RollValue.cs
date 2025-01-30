@@ -25,6 +25,7 @@ public class RollValue : MonoBehaviour
 
     public void UpdateRollValue(byte roll)
     {
+        _animator.Play($"Dice Roll {roll == 1 ? 2 : 1}");
         _animator.Play($"Dice Roll {roll}");
     }
 }
