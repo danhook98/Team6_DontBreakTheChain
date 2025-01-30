@@ -38,13 +38,11 @@ public class ChainStressColourChanger : MonoBehaviour
             if (_distance > _dangerZoneDistance && !_alreadyStressed)
             {
                 _alreadyStressed = true;
-                Debug.Log("Stressed");
                 chainEventChannel.SetChainInDangerZone(_alreadyStressed);
             }
             else if (_distance < _dangerZoneDistance && _alreadyStressed)
             {
                 _alreadyStressed = false;
-                Debug.Log("Relaxed");
                 chainEventChannel.SetChainInDangerZone(_alreadyStressed);
             }
             

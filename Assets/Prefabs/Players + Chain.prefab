@@ -924,6 +924,10 @@ PrefabInstance:
         type: 3}
       insertIndex: 4
       addedObject: {fileID: 203410337257606053}
+    - targetCorrespondingSourceObject: {fileID: 5798515434320802789, guid: 11f86f2d843882b4abb28fb46e6cf9c3,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2637772529008659060}
   m_SourcePrefab: {fileID: 100100000, guid: 11f86f2d843882b4abb28fb46e6cf9c3, type: 3}
 --- !u!1 &5128389671174011475 stripped
 GameObject:
@@ -958,6 +962,19 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &2637772529008659060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5128389671174011475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b2133f22c4cbcf43a20f1da7687d349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 11400000, guid: e2635e72ee7ac3e4e9fe3ea0f04ed190, type: 2}
 --- !u!4 &5606956084325079088 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6529142998314062214, guid: 11f86f2d843882b4abb28fb46e6cf9c3,
@@ -3192,6 +3209,10 @@ PrefabInstance:
         type: 3}
       insertIndex: 4
       addedObject: {fileID: 5665992544341437897}
+    - targetCorrespondingSourceObject: {fileID: 5798515434320802789, guid: 11f86f2d843882b4abb28fb46e6cf9c3,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 729526031416633997}
   m_SourcePrefab: {fileID: 100100000, guid: 11f86f2d843882b4abb28fb46e6cf9c3, type: 3}
 --- !u!4 &3484855848567571631 stripped
 Transform:
@@ -3232,3 +3253,16 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &729526031416633997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4231389171104786124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b2133f22c4cbcf43a20f1da7687d349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 11400000, guid: 250e4c891a4a5af498d312a43d0303a4, type: 2}
