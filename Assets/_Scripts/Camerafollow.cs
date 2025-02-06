@@ -12,8 +12,8 @@ public class Camerafollow : MonoBehaviour
     [SerializeField] private Vector3ValueSO pointone;
     [SerializeField] private Vector3ValueSO pointtwo;
 
-    //[SerializeField] GameObject player1;
-    //[SerializeField] GameObject player2;
+    [SerializeField] GameObject player1;
+    [SerializeField] GameObject player2;
 
 
     //private CinemachineVirtualCamera camera;
@@ -26,16 +26,16 @@ public class Camerafollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       // float player1pos = player1.transform.position.z;
-       // float player2pos = player2.transform.position.z;
+        float player1pos = player1.transform.position.z;
+        float player2pos = player2.transform.position.z;
 
 
-        //float avergepos = (player1pos + player2pos) / 2;
+        float avergepos = (player1pos + player2pos) / 2;
 
-        //gameObject.transform.position = new Vector3(player1.transform.position.x, player1.transform.position.y, avergepos);
+        gameObject.transform.position = new Vector3(player1.transform.position.x, player1.transform.position.y, avergepos);
 
-        Vector3 target = Vector3.Lerp(pointone.value, pointtwo.value, 0.5f);
-        Debug.Log(target);
+       // Vector3 target = Vector3.Lerp(pointone.value, pointtwo.value, 0.5f);
+        //Debug.Log(target);
         //cameratarget.transform.position = target;
        // camera.Follow = cameratarget.transform;
 
