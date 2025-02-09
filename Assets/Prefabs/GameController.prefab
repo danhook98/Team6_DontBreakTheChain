@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 736292565499761762}
   - component: {fileID: 8184019765757364106}
   - component: {fileID: 315801172880588471}
+  - component: {fileID: 3476616554983112120}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -58,6 +59,7 @@ MonoBehaviour:
   backgroundMusicVolume: 0.1
   gameType: {fileID: 11400000, guid: 87ebd3c497c46f1489aa4283412eb138, type: 2}
   tileGenerator: {fileID: 315801172880588471}
+  timer: {fileID: 3476616554983112120}
   playerOne: {fileID: 11400000, guid: 250e4c891a4a5af498d312a43d0303a4, type: 2}
   playerTwo: {fileID: 11400000, guid: e2635e72ee7ac3e4e9fe3ea0f04ed190, type: 2}
   tilesToWin: 30
@@ -100,8 +102,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ScoreChanged, Assembly-CSharp
-        m_MethodName: UpdateScoreDisplay
+        m_TargetAssemblyTypeName: UIValueChanged, Assembly-CSharp
+        m_MethodName: UpdateDisplay
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -134,3 +136,46 @@ MonoBehaviour:
   laneBaseOffset: {x: 0, y: 1.4, z: 0}
   coinPrefab: {fileID: 3881976471770572954, guid: 5c4760cde64b083468e76cc417b0be1a,
     type: 3}
+--- !u!114 &3476616554983112120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5271811533599109990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa573b53ff230544baa88a1eed759ffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startTime: 60
+  OnTimeChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UIValueChanged, Assembly-CSharp
+        m_MethodName: UpdateDisplay
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnTimerZero:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8184019765757364106}
+        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+        m_MethodName: TriggerGameLost
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

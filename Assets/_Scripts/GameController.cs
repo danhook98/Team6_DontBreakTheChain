@@ -25,6 +25,9 @@ public class GameController : MonoBehaviour
     
     [Header("Tile Generator")]
     [SerializeField] private TileGenerator tileGenerator;
+    
+    [Header("Timer")]
+    [SerializeField] private Timer timer;
 
     [Header("Player Data References")] 
     [SerializeField] private PlayerSO playerOne;
@@ -99,6 +102,8 @@ public class GameController : MonoBehaviour
         _isComputerOpponent = gameType.opponentIsAi;
         
         audioChannel.PlayAudio(backgroundMusicAudioClip, backgroundMusicVolume);
+        
+        timer.StartCountdown();
     }
 
     // Main game loop.
@@ -148,6 +153,8 @@ public class GameController : MonoBehaviour
         audioChannel.PlayAudioOneShot(gameWonAudioClip);
         OnWin?.Invoke();
     }
+    
+    public void TriggerGameLost() => GameLost();
 
     private void GameLost()
     {
