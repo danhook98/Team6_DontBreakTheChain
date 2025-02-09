@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 
 public class CoinCollect : MonoBehaviour
 { 
     [SerializeField] private PlayerSO player;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Coin") && player.CurrentTilesMoved == (byte) other.transform.position.z)
         {
