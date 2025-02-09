@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private Vector3 playerOneStartPosition;
     [SerializeField] private Vector3 playerTwoStartPosition;
     [SerializeField] private float playerInputCooldown = 0.75f;
-    [SerializeField][Range(0, 1)] private float coinSpawnChancePerTile = 0.15f;
+    [SerializeField] private byte coinsPerLane = 5;
     [SerializeField] private float gameStartDelay = 2f;
     
     [Header("Chain references")]
@@ -99,8 +99,8 @@ public class GameController : MonoBehaviour
         playerTwo.SetStartPosition(playerTwoStartPosition);
         
         // Generate the tiles along each player's path.
-        tileGenerator.GenerateTiles(playerOneStartPosition, tilesToWin, coinSpawnChancePerTile);
-        tileGenerator.GenerateTiles(playerTwoStartPosition, tilesToWin, coinSpawnChancePerTile, 1);
+        tileGenerator.GenerateTiles(playerOneStartPosition, tilesToWin, coinsPerLane);
+        tileGenerator.GenerateTiles(playerTwoStartPosition, tilesToWin, coinsPerLane, 1);
         
         // Generate the base. 
         tileGenerator.GenerateBase(Vector3.forward * -1, tilesToWin);

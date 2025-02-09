@@ -1,5 +1,6 @@
 using UnityEngine;
 using Colour = UnityEngine.Color;
+using Random = UnityEngine.Random;
 
 public class TileGenerator : MonoBehaviour
 {
@@ -14,10 +15,13 @@ public class TileGenerator : MonoBehaviour
 
     [SerializeField] private GameObject coinPrefab; 
 
-    public void GenerateTiles(Vector3 startPosition, byte numberOfTiles, float coinSpawnChance, byte startOffset = 0)
+    public void GenerateTiles(Vector3 startPosition, byte numberOfTiles, byte coinsToSpawn, byte startOffset = 0)
     {
+        byte spawnedCoins = 0;
+        byte nextCoinSpawn = (byte) Random.Range(2, 5); 
+        
         // Instantiate a tile for every step in the lane.
-        for (int i = 0; i < numberOfTiles; i++)
+        for (byte i = 0; i < numberOfTiles; i++)
         {
             Vector3 position = startPosition + (Vector3.forward * i) - tileStepOffset;
             
@@ -28,13 +32,17 @@ public class TileGenerator : MonoBehaviour
             MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
             meshRenderer.material.color = ((i + startOffset) % 2 == 0 ? Colour.white : Colour.black);
 
-            if (Random.value < coinSpawnChance)
+            //if (Random.value < 0.5 && spawnedCoins < coinsToSpawn)
+            if (spawnedCoins < coinsToSpawn && nextCoinSpawn == i)
             {
                 // Don't spawn a coin on the starting tile.
                 if (i == 0) continue;
                 
                 // Create the coin object. 
                 Instantiate(coinPrefab, position + Vector3.up, Quaternion.identity);
+                
+                spawnedCoins++;
+                nextCoinSpawn = (byte)(i + Random.Range(3, 7));
             }
         }
         
