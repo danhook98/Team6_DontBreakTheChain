@@ -39,6 +39,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private Vector3 playerTwoStartPosition;
     [SerializeField] private float playerInputCooldown = 0.75f;
     [SerializeField][Range(0, 1)] private float coinSpawnChancePerTile = 0.15f;
+    [SerializeField] private float gameStartDelay = 2f;
     
     [Header("Chain references")]
     [SerializeField] private HingeJoint chainCentreHinge;
@@ -48,6 +49,7 @@ public class GameController : MonoBehaviour
     private bool _isComputerOpponent;
 
     private WaitForSeconds _inputCooldownDelay;
+    private WaitForSeconds _gameStartDelay;
 
     private bool _gameWon = false;
     private bool _gameLost = false;
@@ -84,6 +86,10 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         _inputCooldownDelay = new WaitForSeconds(playerInputCooldown);
+        _gameStartDelay = new WaitForSeconds(gameStartDelay);
+        
+        // Disable input until the game 'starts'. 
+        inputReader.DisableInput();
     }
 
     private void Start()
@@ -103,7 +109,14 @@ public class GameController : MonoBehaviour
         
         audioChannel.PlayAudio(backgroundMusicAudioClip, backgroundMusicVolume);
         
+        StartCoroutine(StartGame());
+    }
+
+    private IEnumerator StartGame()
+    {
+        yield return _gameStartDelay;
         timer.StartCountdown();
+        inputReader.EnableInput();
     }
 
     // Main game loop.

@@ -67,6 +67,7 @@ MonoBehaviour:
   playerTwoStartPosition: {x: 2.5, y: 0, z: 0}
   playerInputCooldown: 0.75
   coinSpawnChancePerTile: 0.15
+  gameStartDelay: 4
   chainCentreHinge: {fileID: 0}
   OnWin:
     m_PersistentCalls:
