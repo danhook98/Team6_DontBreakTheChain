@@ -100,7 +100,7 @@ public class GameController : MonoBehaviour
         
         // Generate the tiles along each player's path.
         tileGenerator.GenerateTiles(playerOneStartPosition, tilesToWin, coinSpawnChancePerTile);
-        tileGenerator.GenerateTiles(playerTwoStartPosition, tilesToWin, coinSpawnChancePerTile);
+        tileGenerator.GenerateTiles(playerTwoStartPosition, tilesToWin, coinSpawnChancePerTile, 1);
         
         // Generate the base. 
         tileGenerator.GenerateBase(Vector3.forward * -1, tilesToWin);
