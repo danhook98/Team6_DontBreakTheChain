@@ -3,6 +3,9 @@ using System.Collections;
 using UnityEngine;
 using Colour = UnityEngine.Color;
 
+/// <summary>
+/// Listens for events from the ChainEventChannel and alters the materials of the child chain links.
+/// </summary>
 public class ChainLinkColourListener : MonoBehaviour
 {
     [SerializeField] private ChainEventChannel chainEventChannel;
@@ -19,10 +22,10 @@ public class ChainLinkColourListener : MonoBehaviour
         // Get the child count of this chain link. 
         int childCount = transform.childCount;
         
-        // Setup the link mesh renderers array.
+        // Set up the link mesh renderers array.
         _linkMeshRenderers = new MeshRenderer[childCount];
 
-        // Get all of the link mesh renderers. This all gets completed in Awake to save performance.
+        // Cache all the link mesh renderers. This gets completed in Awake to save performance.
         for (int i = 0; i < childCount; i++)
         {
             _linkMeshRenderers[i] = transform.GetChild(i).GetComponent<MeshRenderer>();

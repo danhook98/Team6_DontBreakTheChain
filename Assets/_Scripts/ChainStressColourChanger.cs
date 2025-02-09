@@ -1,6 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Monitors the distance between the chain anchor points. If it's close to the maximum length of the chain, events are
+/// triggered to change the chain link materials. 
+/// </summary>
 public class ChainStressColourChanger : MonoBehaviour
 {
     [SerializeField] private ChainEventChannel chainEventChannel;
@@ -35,11 +39,13 @@ public class ChainStressColourChanger : MonoBehaviour
         {
             _distance = Vector3.Distance(anchorPointA.value, anchorPointB.value);
 
+            // Chain is close to breaking. 
             if (_distance > _dangerZoneDistance && !_alreadyStressed)
             {
                 _alreadyStressed = true;
                 chainEventChannel.SetChainInDangerZone(_alreadyStressed);
             }
+            // Chain has relaxed.
             else if (_distance < _dangerZoneDistance && _alreadyStressed)
             {
                 _alreadyStressed = false;

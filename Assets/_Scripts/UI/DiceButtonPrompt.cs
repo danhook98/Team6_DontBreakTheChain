@@ -1,10 +1,14 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Sets the text of an adjacent TextMeshPro component with the button prompts for 'Roll dice' and 'Swap dice'.
+/// </summary>
 public class DiceButtonPrompt : MonoBehaviour
 {
     [SerializeField] private InputReader inputReader;
     [SerializeField] private string playerSide;
+    
     private TextMeshProUGUI _text;
 
     private void Awake()
@@ -26,6 +30,7 @@ public class DiceButtonPrompt : MonoBehaviour
 
     private void SetText()
     {
+        // Gets the key binds for the roll dice and swap dice inputs from the InputReader.
         string rollDiceBind = inputReader.GetBinding($"Gameplay/{playerSide}PlayerRoll");
         string swapDiceBind = inputReader.GetBinding($"Gameplay/{playerSide}PlayerSwap");
         
