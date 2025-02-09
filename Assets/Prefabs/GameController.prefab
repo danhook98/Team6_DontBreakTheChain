@@ -64,6 +64,7 @@ MonoBehaviour:
   playerOneStartPosition: {x: -2.5, y: 0, z: 0}
   playerTwoStartPosition: {x: 2.5, y: 0, z: 0}
   playerInputCooldown: 0.75
+  coinSpawnChancePerTile: 0.15
   chainCentreHinge: {fileID: 0}
   OnWin:
     m_PersistentCalls:
@@ -94,6 +95,21 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+  OnScoreChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ScoreChanged, Assembly-CSharp
+        m_MethodName: UpdateScoreDisplay
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &315801172880588471
 MonoBehaviour:

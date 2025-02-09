@@ -51,6 +51,7 @@ public class GameController : MonoBehaviour
     
     public UnityEvent OnWin;
     public UnityEvent OnLose;
+    public UnityEvent<int> OnScoreChanged;
 
     // Subscribe to the input events from the Input Reader.
     private void OnEnable()
@@ -280,10 +281,8 @@ public class GameController : MonoBehaviour
     private void IncreaseScore()
     {
         _score++;
-        
         Debug.Log($"Score: {_score}");
-        
-        // TODO: update displayed score.
+        OnScoreChanged?.Invoke(_score);
     }
 
     private static byte RollDice()
