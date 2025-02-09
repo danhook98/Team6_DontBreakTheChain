@@ -6,14 +6,17 @@ public class PlayerSO : ScriptableObject
 {
     public string Name;
 
-    public Vector3 Position { get; set; }
+    public Vector3 Position { get; set; } = Vector3.zero;
     
     // Dice-centric variables.
-    public byte CurrentRoll { get; private set; }
-    public RollState CurrentRollState { get; set; }
-    public byte CurrentTilesMoved { get; private set; }
-    public bool CanRoll { get; set; }
-    public bool WantsToSwap { get; set; }
+    public byte CurrentRoll { get; private set; } = 0;
+    public RollState CurrentRollState { get; set; } = RollState.Idle;
+    public byte CurrentTilesMoved { get; private set; } = 0;
+    public bool CanRoll { get; set; } = true;
+    public bool WantsToSwap { get; set; } = false;
+    
+    // Other
+    public bool JustInput { get; set; } = false;
 
     private void OnEnable()
     {
@@ -29,6 +32,7 @@ public class PlayerSO : ScriptableObject
     public event UnityAction<Vector3> OnSetStartPosition;
     public event UnityAction<byte> OnCurrentRollChanged;
     public event UnityAction<byte> OnCurrentTilesMovedChanged;
+    public event UnityAction OnScoreChanged;
     
     public void MovePlayer(byte steps) => OnMove?.Invoke(steps);
     public void SetStartPosition(Vector3 startPosition) => OnSetStartPosition?.Invoke(startPosition);
@@ -44,4 +48,6 @@ public class PlayerSO : ScriptableObject
         CurrentTilesMoved += tiles;
         OnCurrentTilesMovedChanged?.Invoke(CurrentTilesMoved);
     } 
+    
+    public void IncrementScore() => OnScoreChanged?.Invoke();
 }

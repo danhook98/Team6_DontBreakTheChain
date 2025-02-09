@@ -11,13 +11,23 @@ public class TileGenerator : MonoBehaviour
     [SerializeField] private GameObject laneBasePrefab;
     [SerializeField] private Vector3 laneBaseOffset;
 
-    public void GenerateTiles(Vector3 startPosition, byte numberOfTiles)
+    [SerializeField] private GameObject coinPrefab; 
+
+    public void GenerateTiles(Vector3 startPosition, byte numberOfTiles, float coinSpawnChance)
     {
         // Instantiate a tile for every step in the lane.
         for (int i = 0; i < numberOfTiles; i++)
         {
             Vector3 position = startPosition + (Vector3.forward * i) - tileStepOffset;
             Instantiate(tileStepPrefab, position, Quaternion.identity);
+
+            if (Random.value < coinSpawnChance)
+            {
+                // Don't spawn a coin on the starting tile.
+                if (i == 0) continue;
+                
+                Instantiate(coinPrefab, position + Vector3.up, Quaternion.identity);
+            }
         }
         
         // Create the lane object.
