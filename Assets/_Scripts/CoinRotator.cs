@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// Rotates and bobs a coin.
+/// </summary>
 public class CoinRotator : MonoBehaviour
 {
     [SerializeField] private float rotateSpeed = 30f;

@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// The main game controller. Handles input for the players, computer player, movement, etc, 
+/// </summary>
 public class GameController : MonoBehaviour
 {
     [Header("Input Reader")]
@@ -48,12 +51,15 @@ public class GameController : MonoBehaviour
     
     private bool _isComputerOpponent;
 
+    // Cache WaitForSeconds methods. 
     private WaitForSeconds _inputCooldownDelay;
     private WaitForSeconds _gameStartDelay;
 
+    // Game win/lose state.
     private bool _gameWon = false;
     private bool _gameLost = false;
     
+    // UnityEvents for various game states. 
     public UnityEvent OnWin;
     public UnityEvent OnLose;
     public UnityEvent<int> OnScoreChanged;
@@ -107,11 +113,13 @@ public class GameController : MonoBehaviour
 
         _isComputerOpponent = gameType.opponentIsAi;
         
+        // Start playing the background music. 
         audioChannel.PlayAudio(backgroundMusicAudioClip, backgroundMusicVolume);
         
         StartCoroutine(StartGame());
     }
 
+    // Enables input and starts the countdown timer after a configured delay. 
     private IEnumerator StartGame()
     {
         yield return _gameStartDelay;
@@ -159,6 +167,7 @@ public class GameController : MonoBehaviour
         }
     }
 
+    // Called when the game has been won.
     private void GameWon()
     {
         if (_gameWon) return;
@@ -167,8 +176,10 @@ public class GameController : MonoBehaviour
         OnWin?.Invoke();
     }
     
+    // Triggers the game lost method, used by the timer script when it reaches zero. 
     public void TriggerGameLost() => GameLost();
 
+    // Called when the game has been lost.
     private void GameLost()
     {
         if (_gameLost) return;
@@ -177,6 +188,7 @@ public class GameController : MonoBehaviour
         OnLose?.Invoke();
     }
 
+    // Rolls the dice for the left player.
     private void LeftPlayerRoll()
     {
         if (playerOne.JustInput) return;
@@ -192,6 +204,7 @@ public class GameController : MonoBehaviour
         PlayerInputCooldown(playerOne);
     }
 
+    // Sets the desire to swap for the left player.
     private void LeftPlayerSwap()
     {
         if (playerOne.JustInput) return;
@@ -207,6 +220,7 @@ public class GameController : MonoBehaviour
         PlayerInputCooldown(playerOne);
     }
 
+    // Rolls the dice for the right player.
     private void RightPlayerRoll()
     {
         if (playerTwo.JustInput) return;
@@ -216,6 +230,7 @@ public class GameController : MonoBehaviour
         PlayerInputCooldown(playerTwo);
     }
 
+    // Sets the desire to swap for the right player.
     private void RightPlayerSwap()
     {
         if (playerTwo.JustInput) return;
@@ -225,18 +240,21 @@ public class GameController : MonoBehaviour
         PlayerInputCooldown(playerTwo);
     }
 
+    // Starts an input cooldown for the given player.
     private void PlayerInputCooldown(PlayerSO player)
     {
         player.JustInput = true;
         StartCoroutine(ResetPlayerJustInput(player));
     }
 
+    // Coroutine for the player input cooldown. 
     private IEnumerator ResetPlayerJustInput(PlayerSO player)
     {
         yield return _inputCooldownDelay;
         player.JustInput = false;
     }
 
+    // Handles rolling the dice for the given player.
     private void PlayerRoll(PlayerSO player, bool playAudio = true)
     {
         if (_gameWon || _gameLost) return;
@@ -248,25 +266,35 @@ public class GameController : MonoBehaviour
                 // for the other player to roll).
                 if (!player.CanRoll || player.CurrentTilesMoved > tilesToWin) break;
 
+                // Rolls a dice and triggers the UpdateCurrentRoll event for the given player.
                 byte roll = RollDice();
                 player.UpdateCurrentRoll(roll);
                 
+                // Update the player's roll state. When they press the roll dice button again, the next case statement
+                // will run instead.
                 player.CurrentRollState = RollState.Rolled;
                 
+                // Play the dice roll sound if allowed.
                 if (playAudio)
                     audioChannel.PlayAudioOneShot(rollDiceAudioClip);
                 
                 // TODO: display the roll value and a message stating to press again to confirm.
                 
                 break;
+            // 'Confirms' the player's choice to lock in their rolled dice value and move their character.
             case RollState.Rolled:
+                // The roll state may be 'rolled', but the player isn't currently allowed to do anything (e.g. waiting
+                // for the other player to roll).
                 if (!player.CanRoll || player.CurrentTilesMoved > tilesToWin) break;
                 
+                // Move the player and trigger the UpdateTilesMoved event.
                 player.MovePlayer(player.CurrentRoll);
                 player.UpdateTilesMoved(player.CurrentRoll);
                 
+                // Allow the player to roll again. 
                 player.CanRoll = false;
 
+                // Play the player move sound if allowed.
                 if (playAudio)
                     audioChannel.PlayAudioOneShot(moveAudioClip);
                 
@@ -276,6 +304,8 @@ public class GameController : MonoBehaviour
         }
     }
 
+    // Tells the game that the given player wants to swap dice values. Both players have to do this for them to be 
+    // swapped.
     private void PlayerSwap(PlayerSO player)
     {
         if (_gameWon || _gameLost) return;
@@ -286,6 +316,7 @@ public class GameController : MonoBehaviour
         }
     }
     
+    // Swaps the dice values.
     private void SwapDiceValues()
     {
         byte temp = playerOne.CurrentRoll;
@@ -298,6 +329,7 @@ public class GameController : MonoBehaviour
         playerTwo.WantsToSwap = false;
     }
 
+    // Increases the game's score and triggers the UnityEvent for any game objects listening. 
     private void IncreaseScore()
     {
         _score++;
@@ -305,6 +337,7 @@ public class GameController : MonoBehaviour
         OnScoreChanged?.Invoke(_score);
     }
 
+    // Rolls a six-sided dice.
     private static byte RollDice()
     {
         byte randomNumber = (byte) Random.Range(1, 6);
