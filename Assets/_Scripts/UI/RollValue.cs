@@ -35,11 +35,7 @@ public class RollValue : MonoBehaviour
     /// <param name="roll">Dice roll value between 1 and 6.</param>
     public void UpdateRollValue(byte roll)
     {
-        // Start another animation before the desired one. This prevents issues if the given roll is the same as the
-        // last animation played, otherwise there would be no visible animation. 
-        _animator.Play($"Dice Roll {(roll == 1 ? 2 : 1)}");
-        
         // Play the animation for the given dice roll. 
-        _animator.Play($"Dice Roll {roll}");
+        _animator.Play($"Dice Roll {roll}", -1, 0f);
     }
 }
