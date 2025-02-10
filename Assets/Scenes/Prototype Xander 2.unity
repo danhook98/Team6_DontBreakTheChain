@@ -1149,6 +1149,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
         type: 3}
+      propertyPath: effect
+      value: 
+      objectReference: {fileID: 2093325404063064253, guid: d27908bc6a421c041a2f047a8e3163f9,
+        type: 3}
+    - target: {fileID: 8184019765757364106, guid: 5de74bf1b6117da49b609035fb2e98d5,
+        type: 3}
       propertyPath: chainCentreHinge
       value: 
       objectReference: {fileID: 76378817}
