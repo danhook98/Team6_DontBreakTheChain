@@ -9,6 +9,8 @@ public class Timer : MonoBehaviour
     private float timeLeft;
     private WaitForSeconds waitTime;
 
+    private bool _timerActive = true;
+
     public UnityEvent<float> OnTimeChanged;
     public UnityEvent OnTimerZero;
 
@@ -23,9 +25,11 @@ public class Timer : MonoBehaviour
         StartCoroutine(StartTimer());
     }
 
+    public void StopCountdown() => _timerActive = false;
+
     private IEnumerator StartTimer()
     {
-        while (timeLeft > 0)
+        while (timeLeft > 0 && _timerActive)
         {
             timeLeft -= 1f;
             OnTimeChanged?.Invoke(timeLeft);

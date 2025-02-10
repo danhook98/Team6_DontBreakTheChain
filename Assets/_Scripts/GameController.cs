@@ -178,6 +178,7 @@ public class GameController : MonoBehaviour
         _gameWon = true;
         audioChannel.PlayAudioOneShot(gameWonAudioClip);
         SpawnEffects();
+        timer.StopCountdown();
         OnWin?.Invoke();
     }
     
@@ -190,6 +191,7 @@ public class GameController : MonoBehaviour
         if (_gameLost) return;
         _gameLost = true;
         audioChannel.PlayAudioOneShot(gameLostAudioClip);
+        timer.StopCountdown();
         OnLose?.Invoke();
     }
 
