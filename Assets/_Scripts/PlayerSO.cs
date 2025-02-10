@@ -28,6 +28,16 @@ public class PlayerSO : ScriptableObject
         WantsToSwap = false;
     }
 
+    public void ResetState()
+    {
+        Position = Vector3.zero;
+        CurrentRoll = 0;
+        CurrentRollState = RollState.Idle;
+        CurrentTilesMoved = 0;
+        CanRoll = true;
+        WantsToSwap = false;
+    }
+
     public event UnityAction<byte> OnMove;
     public event UnityAction<Vector3> OnSetStartPosition;
     public event UnityAction<byte> OnCurrentRollChanged;
