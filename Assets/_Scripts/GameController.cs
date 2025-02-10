@@ -23,6 +23,9 @@ public class GameController : MonoBehaviour
     [SerializeField] private AudioClipSO backgroundMusicAudioClip;
     [SerializeField][Range(0, 1)] private float backgroundMusicVolume = 0.2f;
 
+    [Header("VFX")]
+    [SerializeField] private GameObject effect;
+
     [Header("Game Type SO")]
     [SerializeField] private GameTypeSO gameType;
     
@@ -173,6 +176,7 @@ public class GameController : MonoBehaviour
         if (_gameWon) return;
         _gameWon = true;
         audioChannel.PlayAudioOneShot(gameWonAudioClip);
+        SpawnEffects();
         OnWin?.Invoke();
     }
     
@@ -335,6 +339,19 @@ public class GameController : MonoBehaviour
         _score++;
         Debug.Log($"Score: {_score}");
         OnScoreChanged?.Invoke(_score);
+    }
+
+    private void SpawnEffects()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            float LocationX = Random.Range(-5, 5);
+            float LocationZ = Random.Range(-5, 5);
+
+            Vector3 Location = new Vector3(LocationX, 0, LocationZ);
+
+            Instantiate(effect, Location, Quaternion.identity);
+        }
     }
 
     // Rolls a six-sided dice.

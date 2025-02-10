@@ -7,6 +7,7 @@ using UnityEngine;
 public class CoinCollect : MonoBehaviour
 { 
     [SerializeField] private PlayerSO player;
+    [SerializeField] private ParticleSystem effect;
 
     // Using OnTriggerStay instead of OnTriggerEnter fixes the issue where sometimes a coin won't be 'collected'. 
     private void OnTriggerStay(Collider other)
@@ -17,7 +18,9 @@ public class CoinCollect : MonoBehaviour
         if (player.CurrentTilesMoved == (byte) other.transform.position.z)
         {
             player.IncrementScore();
-            
+
+            Instantiate(effect, transform);
+
             Destroy(other.gameObject);
         }
     }
