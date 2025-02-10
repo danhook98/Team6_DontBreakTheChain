@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -360,5 +361,13 @@ public class GameController : MonoBehaviour
         byte randomNumber = (byte) Random.Range(1, 6);
         return randomNumber;
     } 
+    
+    // Restart the game scene. 
+    public void Restart()
+    {
+        playerOne.ResetState();
+        playerTwo.ResetState();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }
 

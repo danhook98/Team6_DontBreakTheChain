@@ -57,6 +57,7 @@ MonoBehaviour:
   backgroundMusicAudioClip: {fileID: 11400000, guid: b6910c4294bf7864eb69165724dc5426,
     type: 2}
   backgroundMusicVolume: 0.1
+  effect: {fileID: 2093325404063064253, guid: d27908bc6a421c041a2f047a8e3163f9, type: 3}
   gameType: {fileID: 11400000, guid: 87ebd3c497c46f1489aa4283412eb138, type: 2}
   tileGenerator: {fileID: 315801172880588471}
   timer: {fileID: 3476616554983112120}
@@ -84,9 +85,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   OnLose:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
