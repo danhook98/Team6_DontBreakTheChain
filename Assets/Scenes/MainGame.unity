@@ -1222,6 +1222,41 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5142316446221110920, guid: 4d2c5a42835e9b54ab417954011679a9,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142316446221110920, guid: 4d2c5a42835e9b54ab417954011679a9,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142316446221110920, guid: 4d2c5a42835e9b54ab417954011679a9,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142316446221110920, guid: 4d2c5a42835e9b54ab417954011679a9,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142316446221110920, guid: 4d2c5a42835e9b54ab417954011679a9,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142316446221110920, guid: 4d2c5a42835e9b54ab417954011679a9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -130.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142316446221110920, guid: 4d2c5a42835e9b54ab417954011679a9,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5205414099226635838, guid: 4d2c5a42835e9b54ab417954011679a9,
         type: 3}
       propertyPath: m_Pivot.x
